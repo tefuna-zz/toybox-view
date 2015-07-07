@@ -110,11 +110,12 @@
               <p id="txt-step-count"></p>
             </div>
             <button class="btn btn-primary col-sm-1" onclick="executeSteps()">start</button>
-            <div class="col-sm-3 col-sm-offset-2">
+            <div class="col-sm-4 col-sm-offset-2">
               note:
-              <span class="label label-svg-init label-my-sm">undone</span>
-              <span class="label label-svg-move label-my-sm">sorting</span>
-              <span class="label label-svg-comp label-my-sm">complete</span>
+              <span class="label label-svg-undone label-my-sm">undone</span>
+              <span class="label label-svg-comparing label-my-sm">comparing</span>
+              <span class="label label-svg-exchanging label-my-sm">exchanging</span>
+              <span class="label label-svg-complete label-my-sm">complete</span>
             </div>
           </div>
           <div id="steps-graph-area"></div>
@@ -130,7 +131,7 @@
 
     <hr />
     <div id="footer" class="text-center">
-      copyright xxxxxxxx 2015.
+      copyright globy 2015.
     </div>
 
     <script src="../../js/jquery-1.11.3.js"></script>
@@ -142,12 +143,13 @@
       var AREA_W = 800;
       var AREA_H = 300;
       var AREA_PAD = 30;
-      var COLOR_INIT = "#25B8F5";
-      var COLOR_MOVE = "#09C100";
-      var COLOR_COMP = "#FF38E5";
+      var COLOR_UNDONE = "#25B8F5";
+      var COLOR_COMPARING = "#09C100";
+      var COLOR_EXCHANGING = "#0000FF";
+      var COLOR_COMPLETE = "#FF38E5";
       var COLOR_TEXT = "#000000"
       var MAX_DOMAIN = 100;
-      var INTERVAL = 1000; // msec
+      var INTERVAL = 500; // msec
 
       var dataset;
       var steps;
@@ -159,7 +161,7 @@
       /**
        * read json file.
        */
-      d3.json("testdata_template.json", function(error, jsondata) {
+      d3.json("data.json", function(error, jsondata) {
         console.log(error);
         console.log(jsondata);
         dataset = jsondata;
@@ -192,38 +194,17 @@
        * execute sort steps by interval.
        */
       function executeSteps() {
+        console.log("start function executeSteps()");
+
         count = 0;
-        var sortMethod;
-        switch (dataset.method) {
-          case "exchanging":
-            sortMethod = procStepAsExchaging;
-            break;
-          case "selection":
-            sortMethod = procStepAsSelection;
-            break;
-          case "insertion":
-            sortMethod = procStepAsInsertion();
-            break;
-          case "partitioning":
-            sortMethod = procStepAsPartitioning();
-            break;
-          case "merging":
-            sortMethod = procStepAsMerging();
-            break;
-          case "shuffling":
-            sortMethod = procStepAsShuffling();
-            break;
-          default:
-            sortMethod = "unsupported."
-            break;
-        }
 
         drawInitial(svgSteps, dataset.original);
         clearInterval(intervalId);
         $("#txta-step-log").text("");
 
-        console.log(sortMethod);
-        intervalId = setInterval(sortMethod, INTERVAL);
+        intervalId = setInterval("procStep()", INTERVAL);
+
+        console.log("end function executeSteps()");
       }
 
       /**
@@ -278,16 +259,12 @@
             },
             y: function(d) {
               return AREA_H - d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN) - AREA_PAD;
-              // return AREA_PAD;
-
-              // d.val * (AREA_H / MAX_DOMAIN);
             },
             width: (AREA_W - AREA_PAD) / original.length - 2,
             height: function(d) {
               return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
-              // return d.val * ((AREA_H - AREA_PAD) / MAX_DOMAIN);
             },
-            fill: COLOR_INIT
+            fill: COLOR_UNDONE
           });
 
         // add text object.

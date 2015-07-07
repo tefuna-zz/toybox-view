@@ -3,18 +3,35 @@
  * ======================================================================= */
 
 /**
- * re-draw one step.
+ *
  */
-function procStepAsExchaging() {
+function procStep() {
   console.log("start function procStep." + ":" + count);
 
   if (count >= steps.length) {
-    console.log("end of steps");
+
     clearInterval(intervalId);
+    intervalId = setInterval("finishSteps()", INTERVAL + 100);
+    console.log("end of steps");
+
     return;
   }
 
   $("#txt-step-count").text(count + 1 + " / " + steps.length);
+
+  drawStepAsExchanging();
+
+  printStepLog(steps[count]);
+  count++;
+
+  console.log("end function procStep." + ":" + count);
+}
+
+/**
+ * re-draw one step.
+ */
+function drawStepAsExchanging() {
+
   // slide rect.
   svgSteps.select("g.data").selectAll("rect")
     .data(steps[count].swapelem, function(d) {
@@ -23,20 +40,26 @@ function procStepAsExchaging() {
     .transition()
     .duration(INTERVAL)
     .attr({
-      fill: COLOR_MOVE,
       x: function(d, i) {
         return d.pos * (AREA_W - AREA_PAD) / dataset.original.length + AREA_PAD;
+      },
+      fill: function(d) {
+        console.log(steps[count].operation);
+        if (steps[count].operation == "comparing") {
+          return COLOR_COMPARING;
+        } else {
+          return COLOR_EXCHANGING;
+        }
       }
     })
     .transition()
     .duration(INTERVAL)
     .attr({
       fill: function(d) {
-        console.log(d);
         if (d.sorted === true) {
-          return COLOR_COMP;
+          return COLOR_COMPLETE;
         } else {
-          return COLOR_INIT;
+          return COLOR_UNDONE;
         }
       }
     });
@@ -54,19 +77,22 @@ function procStepAsExchaging() {
         return d.pos * (AREA_W - AREA_PAD) / dataset.original.length + (AREA_W / dataset.original.length - 1) / 2 + AREA_PAD;
       }
     });
-
-  printStepLog(steps[count]);
-  count++;
-
-  console.log("end function procStep." + ":" + count);
 }
+
 
 /**
  *
  */
-function procStepAsSelectionSort() {
-  procStepAsExchaging();
+function finishSteps() {
+  console.log("start function finishStep.");
 
+  svgSteps.select("g.data").selectAll("rect")
+    .attr({
+      fill: COLOR_COMPLETE
+    });
+
+  clearInterval(intervalId);
+  console.log("end function finishStep.");
 }
 
 
@@ -78,7 +104,26 @@ function procStepAsSelectionSort() {
  * write step log to textarea.
  */
 function printStepLog(stepObj) {
-  $("#txta-step-log").append("step: " + stepObj.seq + "\tswap(id): " + stepObj.swapelem[0].id + " <-> " + stepObj.swapelem[1].id + "\tarray: クライアントで今の状態をとるしかない。" + "\n");
+
+  var elemIds = "";
+  for (var i = 0; i < stepObj.swapelem.length - 1; i++) {
+    elemIds = elemIds + stepObj.swapelem[i].id + "(" + stepObj.swapelem[i].val + "), ";
+  }
+  elemIds = elemIds + stepObj.swapelem[stepObj.swapelem.length - 1].id + "(" + stepObj.swapelem[stepObj.swapelem.length - 1].val + ")";
+
+  // @TODO そのstep時点での進捗。サーバからもらうしかない。。。
+  var array = "[]";
+  // for (var i = 0; i < dataList.length - 1; i++) {
+  //   array = array + dataList[i].val + ", ";
+  // }
+  // array = "[" + array + dataList[dataList.length - 1].val + "]";
+
+
+  $("#txta-step-log").append("step: " + stepObj.seq + "\t");
+  $("#txta-step-log").append("operation: " + stepObj.operation + "\t");
+  $("#txta-step-log").append("elem-ids: " + elemIds + "\t");
+  $("#txta-step-log").append("array: " + array + "\n");
+
   $("#txta-step-log").scrollTop($("#txta-step-log")[0].scrollHeight);
 }
 

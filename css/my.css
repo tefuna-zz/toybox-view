@@ -32,13 +32,16 @@ div.my-margin {
   /*stroke: black;*/
   shape-rendering: crispEdges;
 }
-.label-svg-init {
+.label-svg-undone {
   background-color: #25B8F5;
 }
-.label-svg-move {
+.label-svg-comparing {
   background-color: #09C100;
 }
-.label-svg-comp {
+.label-svg-exchanging {
+  background-color: #0000FF;
+}
+.label-svg-complete {
   background-color: #FF38E5;
 }
 
