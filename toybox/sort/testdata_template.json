@@ -1,0 +1,278 @@
+{
+  "name" : "selection sort",
+  "method" : "exchanging",
+  "original" : [ {
+    "id" : 0,
+    "sorted" : false,
+    "val" : 82,
+    "prepos" : 0,
+    "pos" : 0
+  }, {
+    "id" : 1,
+    "sorted" : false,
+    "val" : 39,
+    "prepos" : 1,
+    "pos" : 1
+  }, {
+    "id" : 2,
+    "sorted" : false,
+    "val" : 31,
+    "prepos" : 2,
+    "pos" : 2
+  }, {
+    "id" : 3,
+    "sorted" : false,
+    "val" : 35,
+    "prepos" : 3,
+    "pos" : 3
+  }, {
+    "id" : 4,
+    "sorted" : false,
+    "val" : 41,
+    "prepos" : 4,
+    "pos" : 4
+  }, {
+    "id" : 5,
+    "sorted" : false,
+    "val" : 54,
+    "prepos" : 5,
+    "pos" : 5
+  }, {
+    "id" : 6,
+    "sorted" : false,
+    "val" : 41,
+    "prepos" : 6,
+    "pos" : 6
+  }, {
+    "id" : 7,
+    "sorted" : false,
+    "val" : 51,
+    "prepos" : 7,
+    "pos" : 7
+  }, {
+    "id" : 8,
+    "sorted" : false,
+    "val" : 22,
+    "prepos" : 8,
+    "pos" : 8
+  }, {
+    "id" : 9,
+    "sorted" : false,
+    "val" : 51,
+    "prepos" : 9,
+    "pos" : 9
+  } ],
+  "complete" : [ {
+    "id" : 8,
+    "sorted" : true,
+    "val" : 22,
+    "prepos" : 8,
+    "pos" : 0
+  }, {
+    "id" : 2,
+    "sorted" : true,
+    "val" : 31,
+    "prepos" : 2,
+    "pos" : 1
+  }, {
+    "id" : 3,
+    "sorted" : true,
+    "val" : 35,
+    "prepos" : 3,
+    "pos" : 2
+  }, {
+    "id" : 1,
+    "sorted" : true,
+    "val" : 39,
+    "prepos" : 1,
+    "pos" : 3
+  }, {
+    "id" : 4,
+    "sorted" : true,
+    "val" : 41,
+    "prepos" : 4,
+    "pos" : 4
+  }, {
+    "id" : 6,
+    "sorted" : true,
+    "val" : 41,
+    "prepos" : 6,
+    "pos" : 5
+  }, {
+    "id" : 7,
+    "sorted" : true,
+    "val" : 51,
+    "prepos" : 7,
+    "pos" : 6
+  }, {
+    "id" : 9,
+    "sorted" : true,
+    "val" : 51,
+    "prepos" : 9,
+    "pos" : 7
+  }, {
+    "id" : 5,
+    "sorted" : true,
+    "val" : 54,
+    "prepos" : 9,
+    "pos" : 8
+  }, {
+    "id" : 0,
+    "sorted" : true,
+    "val" : 82,
+    "prepos" : 0,
+    "pos" : 9
+  } ],
+  "steps" : [ {
+    "seq" : 1,
+    "swapelem" : [ {
+      "id" : 8,
+      "sorted" : true,
+      "val" : 22,
+      "prepos" : 8,
+      "pos" : 0
+    }, {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 82,
+      "prepos" : 0,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 2,
+    "swapelem" : [ {
+      "id" : 2,
+      "sorted" : true,
+      "val" : 31,
+      "prepos" : 2,
+      "pos" : 1
+    }, {
+      "id" : 1,
+      "sorted" : false,
+      "val" : 39,
+      "prepos" : 1,
+      "pos" : 2
+    } ]
+  }, {
+    "seq" : 3,
+    "swapelem" : [ {
+      "id" : 3,
+      "sorted" : true,
+      "val" : 35,
+      "prepos" : 3,
+      "pos" : 2
+    }, {
+      "id" : 1,
+      "sorted" : false,
+      "val" : 39,
+      "prepos" : 1,
+      "pos" : 3
+    } ]
+  }, {
+    "seq" : 4,
+    "swapelem" : [ {
+      "id" : 1,
+      "sorted" : true,
+      "val" : 39,
+      "prepos" : 1,
+      "pos" : 3
+    }, {
+      "id" : 1,
+      "sorted" : true,
+      "val" : 39,
+      "prepos" : 1,
+      "pos" : 3
+    } ]
+  }, {
+    "seq" : 5,
+    "swapelem" : [ {
+      "id" : 4,
+      "sorted" : true,
+      "val" : 41,
+      "prepos" : 4,
+      "pos" : 4
+    }, {
+      "id" : 4,
+      "sorted" : true,
+      "val" : 41,
+      "prepos" : 4,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 6,
+    "swapelem" : [ {
+      "id" : 6,
+      "sorted" : true,
+      "val" : 41,
+      "prepos" : 6,
+      "pos" : 5
+    }, {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 6
+    } ]
+  }, {
+    "seq" : 7,
+    "swapelem" : [ {
+      "id" : 7,
+      "sorted" : true,
+      "val" : 51,
+      "prepos" : 7,
+      "pos" : 6
+    }, {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 7
+    } ]
+  }, {
+    "seq" : 8,
+    "swapelem" : [ {
+      "id" : 9,
+      "sorted" : true,
+      "val" : 51,
+      "prepos" : 9,
+      "pos" : 7
+    }, {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 9
+    } ]
+  }, {
+    "seq" : 9,
+    "swapelem" : [ {
+      "id" : 5,
+      "sorted" : true,
+      "val" : 54,
+      "prepos" : 9,
+      "pos" : 8
+    }, {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 82,
+      "prepos" : 0,
+      "pos" : 9
+    } ]
+  }, {
+    "seq" : 10,
+    "swapelem" : [ {
+      "id" : 0,
+      "sorted" : true,
+      "val" : 82,
+      "prepos" : 0,
+      "pos" : 9
+    }, {
+      "id" : 0,
+      "sorted" : true,
+      "val" : 82,
+      "prepos" : 0,
+      "pos" : 9
+    } ]
+  } ],
+  "spent" : 0
+}

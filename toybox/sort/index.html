@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/my.css" rel="stylesheet" />
+
+  <title>sort visualization</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>sort visualization.</h1>
+    </div>
+
+    <div id="div-request-area">
+      <h2>setup</h2>
+      <div class="my-margin">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="control-label">sort name</label>
+            <select id="sel-sort-name" class="form-control" onchange="showSortDescription()">
+              <option value="99">--</option>
+              <option value="01">selection sort</option>
+              <option value="02">insertion sort</option>
+              <option value="03">quick sort</option>
+              <option value="04">merge sort</option>
+              <option value="05">heap sort</option>
+              <option value="06">radix sort(LSD)</option>
+              <option value="07">radix sort(MSD)</option>
+              <option value="08">intro sort</option>
+              <option value="09">std stable sort</option>
+              <option value="10">shell sort</option>
+              <option value="11">bubble sort</option>
+              <option value="12">shaker sort</option>
+              <option value="13">gnome sort</option>
+              <option value="14">bitonic sort</option>
+              <option value="15">bogo sort</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">elements</label>
+            <input type="text" class="form-control" placeholder="default 20" />
+          </div>
+          <button type="submit" class="btn btn-primary">execute</button>
+          <button type="reset" class="btn btn-default">reset</button>
+        </form>
+        <br />
+        <div class="row">
+          <div class="col-sm-1">
+            <label>description</label>
+          </div>
+          <textarea id="txta-sort-description" class="col-sm-8 view-mode my" rows="2" readonly="true" placeholder="show sort algorithm overview."></textarea>
+        </div>
+      </div>
+    </div>
+    <br />
+    <hr />
+    <div id="div-result-area">
+      <h2>result</h2>
+      <div id="result" class="my-margin">
+        <div class="row">
+          <div class="col-sm-1">
+            <span class="label label-default label-my">sort name</span>
+          </div>
+          <p id="txt-sort-name" class="col-sm-2"></p>
+          <div class="col-sm-1">
+            <span class="label label-default label-my">method</span>
+          </div>
+          <p id="txt-sort-method" class="col-sm-2"></p>
+          <div class="col-sm-1">
+            <span class="label label-default label-my">elements</span>
+          </div>
+          <p id="txt-elements" class="col-sm-2"></p>
+          <div class="col-sm-1">
+            <span class="label label-default label-my">time spent</span>
+          </div>
+          <p id="txt-time-spent" class="col-sm-2"></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-1">
+            <span class="label label-default label-my">raw data</span>
+          </div>
+          <textarea id="txta-raw-data" class="col-sm-8 view-mode my" rows="2" readonly="true"></textarea>
+        </div>
+      </div>
+
+      <br />
+      <div id="original" class="my-margin">
+        <h3>original image.</h3>
+        <div id="original-graph-area" class="my-margin"></div>
+      </div>
+
+      <br />
+      <div id="steps" class="my-margin">
+        <h3>sort steps.</h3>
+        <div class="my-margin">
+          <div class="row">
+            <div class="col-sm-1">
+              <label>stepping</label>
+            </div>
+            <div class="col-sm-2">
+              <p id="txt-step-count"></p>
+            </div>
+            <button class="btn btn-primary col-sm-1" onclick="executeSteps()">start</button>
+            <div class="col-sm-3 col-sm-offset-2">
+              note:
+              <span class="label label-svg-init label-my-sm">undone</span>
+              <span class="label label-svg-move label-my-sm">sorting</span>
+              <span class="label label-svg-comp label-my-sm">complete</span>
+            </div>
+          </div>
+          <div id="steps-graph-area"></div>
+          <div class="row">
+            <div class="col-sm-1">
+              <label>step log</label>
+            </div>
+            <textarea id="txta-step-log" class="col-sm-8 view-mode my" rows="4" readonly="true" placeholder="show sort steps."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <div id="footer" class="text-center">
+      copyright xxxxxxxx 2015.
+    </div>
+
+    <script src="../../js/jquery-1.11.3.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/d3.js"></script>
+    <script src="js/sort-common.js"></script>
+
+    <script>
+      var AREA_W = 800;
+      var AREA_H = 300;
+      var AREA_PAD = 30;
+      var COLOR_INIT = "#25B8F5";
+      var COLOR_MOVE = "#09C100";
+      var COLOR_COMP = "#FF38E5";
+      var COLOR_TEXT = "#000000"
+      var MAX_DOMAIN = 100;
+      var INTERVAL = 1000; // msec
+
+      var dataset;
+      var steps;
+      var svgOriginal;
+      var svgSteps;
+      var count = 0;
+      var intervalId;
+
+      /**
+       * read json file.
+       */
+      d3.json("testdata_template.json", function(error, jsondata) {
+        console.log(error);
+        console.log(jsondata);
+        dataset = jsondata;
+        steps = dataset.steps;
+
+        svgOriginal = setupGraphArea("#original-graph-area");
+        svgSteps = setupGraphArea("#steps-graph-area");
+        drawInitial(svgOriginal, dataset.original);
+        drawInitial(svgSteps, dataset.original);
+
+        $("#txt-sort-name").text(dataset.name);
+        $("#txt-sort-method").text(dataset.method);
+        $("#txt-elements").text(dataset.original.length);
+        $("#txt-time-spent").text(dataset.spent + " msec.");
+        $("#txta-raw-data").text(function() {
+          var rawdata = "";
+          for (var i = 0; i < dataset.original.length; i++) {
+            rawdata = rawdata + dataset.original[i].val
+            if (i != dataset.original.length - 1) {
+              rawdata = rawdata + ", ";
+            }
+          }
+          return rawdata;
+        });
+        $("#txt-step-count").text(count + " / " + steps.length);
+      });
+
+
+      /**
+       * execute sort steps by interval.
+       */
+      function executeSteps() {
+        count = 0;
+        var sortMethod;
+        switch (dataset.method) {
+          case "exchanging":
+            sortMethod = procStepAsExchaging;
+            break;
+          case "selection":
+            sortMethod = procStepAsSelection;
+            break;
+          case "insertion":
+            sortMethod = procStepAsInsertion();
+            break;
+          case "partitioning":
+            sortMethod = procStepAsPartitioning();
+            break;
+          case "merging":
+            sortMethod = procStepAsMerging();
+            break;
+          case "shuffling":
+            sortMethod = procStepAsShuffling();
+            break;
+          default:
+            sortMethod = "unsupported."
+            break;
+        }
+
+        drawInitial(svgSteps, dataset.original);
+        clearInterval(intervalId);
+        $("#txta-step-log").text("");
+
+        console.log(sortMethod);
+        intervalId = setInterval(sortMethod, INTERVAL);
+      }
+
+      /**
+       *  setup #graph-area.
+       */
+      function setupGraphArea(graphId) {
+        console.log("start function setupGraphArea.");
+
+        // create svg.
+        var svg = d3.select(graphId).append("svg");
+        svg.append("g").attr("class", "data");
+        svg.attr("width", AREA_W).attr("height", AREA_H);
+
+        // define axis.
+        var yScale = d3.scale.linear()
+          .domain([0, MAX_DOMAIN])
+          .range([AREA_H - AREA_PAD, AREA_PAD]);
+        var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
+        svg.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + AREA_PAD + ", 0)")
+          .call(yAxis);
+
+        console.log("end function setupGraphArea.");
+
+        return svg;
+      }
+
+
+      /**
+       *  draw initial graph.
+       */
+      function drawInitial(svg, original) {
+        console.log("start function drawInitial.");
+
+        // clear all graph objecct.
+        svg.select("g.data").selectAll("rect")
+          .data([]).exit().remove();
+        svg.select("g.data").selectAll("text")
+          .data([]).exit().remove();
+
+        // add rect object.
+        svg.select("g.data").selectAll("rect")
+          .data(original, function(d) {
+            return d.id;
+          })
+          .enter()
+          .append("rect")
+          .attr({
+            x: function(d, i) {
+              return i * (AREA_W - AREA_PAD) / original.length + AREA_PAD;
+            },
+            y: function(d) {
+              return AREA_H - d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN) - AREA_PAD;
+              // return AREA_PAD;
+
+              // d.val * (AREA_H / MAX_DOMAIN);
+            },
+            width: (AREA_W - AREA_PAD) / original.length - 2,
+            height: function(d) {
+              return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
+              // return d.val * ((AREA_H - AREA_PAD) / MAX_DOMAIN);
+            },
+            fill: COLOR_INIT
+          });
+
+        // add text object.
+        svg.select("g.data").selectAll("text")
+          .data(original, function(d) {
+            return d.id;
+          })
+          .enter()
+          .append("text")
+          .text(function(d) {
+            return d.id + "(" + d.val + ")";
+          })
+          .attr({
+            "text-anchor": "middle",
+            x: function(d, i) {
+              return i * (AREA_W - AREA_PAD) / original.length + (AREA_W / original.length - 1) / 2 + AREA_PAD;
+            },
+            y: function(d) {
+              return AREA_H - 5 - AREA_PAD;
+            },
+            fill: COLOR_TEXT
+          });
+
+        console.log("end function drawInitial.");
+      }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+
+  <title>sort visualization</title>
+</head>
+
+<body>
+
+  <div id="header">
+    <h1>data visualization.</h1>
+  </div>
+  <div class="container">
+    <div id="steps">
+      <h3>sort steps.</h3>
+      <div id="graph-area-steps"></div>
+      <div id="raw-data-steps"></div>
+    </div>
+    <div id="original">
+      <h3>original data.</h3>
+      <div id="graph-area-original"></div>
+      <div id="raw-data-original"></div>
+    </div>
+  </div>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/d3.js"></script>
+
+  <script>
+    var areaWidth = 500;
+    var areaHeight = 300;
+    var dataset__;
+    var steps;
+    var j = 0;
+    var intervalId;
+
+
+
+    d3.json('data.json', function(error, dataset) {
+      //   var dataset = [];
+      //   for(var i = 0; i < sortdata.data.original.length; i++) {
+      //     dataset.push(sortdata.data.original[i]);
+      //   };
+      // });
+      console.log(error);
+      console.log(dataset);
+      dataset__ = dataset;
+      steps = dataset__.data.steps;
+
+      setupGraphArea();
+      drawOriginal(dataset.data.original);
+      drawSteps(dataset.data.original, dataset.data.steps);
+      // for (var j = 0; j < steps.length; j++) {
+      //   procStep(j);
+      //   // .duration(500)
+      //   // .attr({
+      //   //   // fill: '#6fbadd'
+      //   // });
+      // }
+
+    });
+
+
+    intervalId = setInterval("pstep()", 1000);
+
+    /**
+     *  setup #graph-area.
+     */
+    function setupGraphArea() {
+      d3.select('#graph-area-original').append('svg').attr('width', areaWidth).attr('height', areaHeight);
+      d3.select('#graph-area-steps').append('svg').attr('width', areaWidth).attr('height', areaHeight);
+
+      // @TODO
+      // disp x-axis, y-axis.
+    }
+
+    /**
+     *  read json datafile.
+     */
+    function drawOriginal(original) {
+      var svg = d3.select("#graph-area-original").select("svg");
+      svg.selectAll('rect')
+        .data(original)
+        .enter()
+        .append('rect')
+        .attr({
+          x: function(d, i) {
+            return i * areaWidth / 10;
+          },
+          y: function(d) {
+            return areaHeight - d * 20;
+          },
+          width: areaWidth / 10 - 5,
+          height: function(d) {
+            return d * 20;
+          },
+          fill: '#6fbadd'
+        });
+    }
+
+
+    function drawSteps(original, steps) {
+      var graph = d3.select('#graph-area-steps').select("svg");
+
+      // draw first step.
+      graph.selectAll('rect')
+        .data(original, function(d) {
+          console.log(d);
+          return d;
+        })
+        .enter()
+        .append('rect')
+        .attr({
+          x: function(d, i) {
+            return i * areaWidth / 10;
+          },
+          y: function(d) {
+            return areaHeight - d * 20;
+          },
+          width: areaWidth / 10 - 5,
+          height: function(d) {
+            return d * 20;
+          },
+          fill: '#6fbadd'
+        });
+
+    }
+
+    // draw step by step.
+
+    function pstep() {
+
+      if (j >= 3) {
+        console.log("end of steps");
+        clearInterval(intervalId);
+        return;
+      }
+      procStep();
+      // backColor();
+      j++;
+
+    }
+
+
+    function procStep() {
+      console.log("procStep;" + j)
+      var graph = d3.select('#graph-area-steps').select("svg");
+      var swapelem_val = [steps[j].swapelem[0].val, steps[j].swapelem[1].val];
+
+      graph.selectAll("rect")
+        .data(swapelem_val, function(d) {
+          return d;
+        })
+        .transition()
+        .duration(1000)
+        .attr({
+          fill: '#6fba00',
+          x: function(d, i) {
+            //            console.log(dataset__.data.steps[0].swapelem.val);
+            return dataset__.data.steps[j].swapelem[i].pos * areaWidth / 10;
+          }
+        })
+        .transition()
+        .duration(1000)
+        .attr({
+          fill: '#6fbadd',
+        });
+
+    }
+
+
+    function backColor() {
+      console.log("back color;")
+
+      var graph = d3.select('#graph-area-steps').select("svg");
+      var swapelem_val = [steps[j].swapelem[0].val, steps[j].swapelem[1].val];
+
+      graph.selectAll("rect")
+        .data(swapelem_val, function(d) {
+          console.log(d);
+          return d;
+        })
+        .transition()
+        .duration(1000)
+        .attr({
+          fill: '#6fba99',
+        });
+
+    }
+
+
+    // .attr({
+    //   fill: '#6fba00'
+    // });
+
+    // for (var i = 0; i < steps.length; i++) {
+    //   var step = steps[i];
+    //   console.log(steps[i].length);
+    //   d3.timer(procStep);
+    // }
+    //
+    //
+    // function procStep() {
+    //   console.log(step.length);
+    //   graph.selectAll('rect')
+    //     .data(step)
+    //     .enter()
+    //     .append('rect')
+    //     .attr({
+    //       x: function(d, i) {
+    //         return i * 50;
+    //       },
+    //       y: function(d) {
+    //         return 300 - d * 20;
+    //       },
+    //       width: 40,
+    //       height: function(d) {
+    //         return d * 20;
+    //       },
+    //       fill: '#6fba00'
+    //     });
+    // }
+    // console.log(graph);
+  </script>
+
+</body>
+
+</html>

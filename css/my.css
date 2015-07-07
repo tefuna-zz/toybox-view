@@ -1,0 +1,55 @@
+/**
+ * customize.
+ */
+
+textarea.my {
+  resize: vertical;
+}
+textarea.view-mode {
+  border: none;
+}
+span.label-my {
+  font-size: 100%;
+  font-weight: normal;
+}
+span.label-my-sm {
+  font-weight: normal;
+}
+body {
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /*font-family: "ヒラギノ角ゴ Pro W3", sans-serif;*/
+  font-family: "Migu 1M", sans-serif;
+}
+div.my-margin {
+  margin-left: 15px;
+}
+
+/** for svg */
+
+.axis path, .axis line {
+  fill: none;
+  stroke: white;
+  /*stroke: black;*/
+  shape-rendering: crispEdges;
+}
+.label-svg-init {
+  background-color: #25B8F5;
+}
+.label-svg-move {
+  background-color: #09C100;
+}
+.label-svg-comp {
+  background-color: #FF38E5;
+}
+
+/*.axis text {
+  font-family: sans-serif;
+  font-size: 11px;
+}*/
+
+
+/** for debug. */
+
+div {
+  border: 1px solid #d3d3d3;
+}

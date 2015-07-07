@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+
+  <title>sort visualization</title>
+</head>
+<body>
+  
+  <h1>data visualization.</h1>
+  <div id="data-graph1">
+    <svg width="500" height="300"></svg>
+  </div>
+
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/d3.js"></script>
+
+  <script>
+    // CSV の読み込み
+    d3.csv('data.csv', function(csvdata) {
+      var dataset = [];
+      for (var i = 0; i < csvdata.length; i++) {
+        dataset.push(csvdata[i]['value']);
+      };
+      make(dataset);
+    });
+
+    // SVG にバーを描く
+    function make(dataset) {
+      d3.select('#data-graph1').select('svg').selectAll('rect')
+        .data(dataset)
+        .enter()
+        .append('rect')
+        .attr({
+          x : function(d, i){ return i * 50; },
+          y : function(d){ return 300 - d; },
+          width : 40,
+          height : function(d){ return d; },
+          fill : '#6fbadd'
+      });
+    }
+  </script>
+
+</body>
+</html>

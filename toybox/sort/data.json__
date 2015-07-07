@@ -1,0 +1,148 @@
+{
+  "name": "bubble sort",
+  "method": "exchanging",
+  "data": {
+    "original": [{
+      "id": 0,
+      "val": 10
+    }, {
+      "id": 1,
+      "val": 9
+    }, {
+      "id": 2,
+      "val": 8
+    }, {
+      "id": 3,
+      "val": 7
+    }, {
+      "id": 4,
+      "val": 6
+    }, {
+      "id": 5, "val": 5
+    }, {
+      "id": 6,
+      "val": 4
+    }, {
+      "id": 7,
+      "val": 3
+    }, {
+      "id": 8,
+      "val": 2
+    }, {
+      "id": 9,
+      "val": 1
+    }],
+    "sorted": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "steps": [{
+      "seq": 1,
+      "stepped": [9, 10, 8, 7, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 0,
+        "pos": 1
+      }, {
+        "id": 1,
+        "prepos": 1,
+        "pos": 0
+      }]
+    }, {
+      "seq": 2,
+      "stepped": [9, 8, 10, 7, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 1,
+        "pos": 2
+      }, {
+        "id": 2,
+        "prepos": 2,
+        "pos": 1
+      }]
+    }, {
+      "seq": 3,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 2,
+        "pos": 3
+      }, {
+        "id": 3,
+        "prepos": 3,
+        "pos": 2
+      }]
+    }, {
+      "seq": 4,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 3,
+        "pos": 4
+      }, {
+        "id": 4,
+        "prepos": 4,
+        "pos": 3
+      }]
+    }, {
+      "seq": 5,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 4,
+        "pos": 5
+      }, {
+        "id": 5,
+        "prepos": 5,
+        "pos": 4
+      }]
+    }, {
+      "seq": 6,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 5,
+        "pos": 6
+      }, {
+        "id": 6,
+        "prepos": 6,
+        "pos": 5
+      }]
+    }, {
+      "seq": 7,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 6,
+        "pos": 7
+      }, {
+        "id": 7,
+        "prepos": 7,
+        "pos": 6
+      }]
+    }, {
+      "seq": 8,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 7,
+        "pos": 8
+      }, {
+        "id": 8,
+        "prepos": 8,
+        "pos": 7
+      }]
+    }, {
+      "seq": 9,
+      "stepped": [9, 8, 7, 10, 6, 5, 4, 3, 2, 1],
+      "swapelem": [{
+        "id": 0,
+        "prepos": 8,
+        "pos": 9,
+        "sorted": true
+      }, {
+        "id": 9,
+        "prepos": 9,
+        "pos": 8
+      }]
+    }]
+  },
+  "spent": 100
+}
