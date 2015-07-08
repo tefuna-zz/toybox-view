@@ -57,6 +57,7 @@ function drawStepAsExchanging() {
     .attr({
       fill: function(d) {
         if (d.sorted === true) {
+          console.log(d);
           return COLOR_COMPLETE;
         } else {
           return COLOR_UNDONE;
@@ -87,6 +88,8 @@ function finishSteps() {
   console.log("start function finishStep.");
 
   svgSteps.select("g.data").selectAll("rect")
+    .transition()
+    .duration(INTERVAL)
     .attr({
       fill: COLOR_COMPLETE
     });
