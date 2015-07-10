@@ -125,7 +125,7 @@ function printStepLog(stepObj) {
   $("#txta-step-log").append("step: " + stepObj.seq + "\t");
   $("#txta-step-log").append("operation: " + stepObj.operation + "\t");
   $("#txta-step-log").append("elem-ids: " + elemIds + "\t");
-  $("#txta-step-log").append("array: " + array + "\n");
+  $("#txta-step-log").append("array: " + stepObj.array + "\n");
 
   $("#txta-step-log").scrollTop($("#txta-step-log")[0].scrollHeight);
 }
