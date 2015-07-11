@@ -1,34 +1,82 @@
 {
+<<<<<<< HEAD
   "name" : "bitonic sort",
+=======
+<<<<<<< HEAD
+  "name" : "insertion sort",
+=======
+  "name" : "gnome sort",
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
   "method" : "exchanging",
   "original" : [ {
     "id" : 0,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 93,
+=======
+<<<<<<< HEAD
+    "val" : 84,
+=======
+    "val" : 15,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 0,
     "pos" : 0
   }, {
     "id" : 1,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 2,
+=======
+<<<<<<< HEAD
+    "val" : 25,
+=======
+    "val" : 57,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 1,
     "pos" : 1
   }, {
     "id" : 2,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 74,
+=======
+<<<<<<< HEAD
+    "val" : 29,
+=======
+    "val" : 28,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 2,
     "pos" : 2
   }, {
     "id" : 3,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 1,
+=======
+<<<<<<< HEAD
+    "val" : 93,
+=======
+    "val" : 72,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 3,
     "pos" : 3
   }, {
     "id" : 4,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 60,
+=======
+<<<<<<< HEAD
+    "val" : 26,
+=======
+    "val" : 77,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 4,
     "pos" : 4
   }, {
@@ -40,25 +88,170 @@
   }, {
     "id" : 6,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 57,
+=======
+<<<<<<< HEAD
+    "val" : 73,
+=======
+    "val" : 56,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 6,
     "pos" : 6
   }, {
     "id" : 7,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 98,
+=======
+<<<<<<< HEAD
+    "val" : 64,
+=======
+    "val" : 34,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 7,
     "pos" : 7
   }, {
     "id" : 8,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 78,
+=======
+<<<<<<< HEAD
+    "val" : 44,
+=======
+    "val" : 58,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 8,
     "pos" : 8
   }, {
     "id" : 9,
     "sorted" : false,
+<<<<<<< HEAD
     "val" : 90,
+=======
+<<<<<<< HEAD
+    "val" : 73,
+    "prepos" : 9,
+    "pos" : 9
+  } ],
+  "complete" : [ {
+    "id" : 1,
+    "sorted" : false,
+    "val" : 25,
+    "prepos" : 1,
+    "pos" : 0
+  }, {
+    "id" : 0,
+    "sorted" : false,
+    "val" : 84,
+    "prepos" : 2,
+    "pos" : 1
+  }, {
+    "id" : 3,
+    "sorted" : false,
+    "val" : 93,
+    "prepos" : 3,
+    "pos" : 2
+  }, {
+    "id" : 4,
+    "sorted" : false,
+    "val" : 26,
+    "prepos" : 2,
+    "pos" : 3
+  }, {
+    "id" : 2,
+    "sorted" : false,
+    "val" : 29,
+    "prepos" : 1,
+    "pos" : 4
+  }, {
+    "id" : 7,
+    "sorted" : false,
+    "val" : 64,
+    "prepos" : 6,
+    "pos" : 5
+  }, {
+    "id" : 6,
+    "sorted" : false,
+    "val" : 73,
+    "prepos" : 7,
+    "pos" : 6
+  }, {
+    "id" : 8,
+    "sorted" : false,
+    "val" : 44,
+    "prepos" : 6,
+    "pos" : 7
+  }, {
+    "id" : 5,
+    "sorted" : false,
+    "val" : 54,
+    "prepos" : 5,
+    "pos" : 8
+  }, {
+    "id" : 9,
+    "sorted" : false,
+    "val" : 73,
+    "prepos" : 9,
+    "pos" : 9
+  } ],
+  "steps" : [ {
+    "seq" : 1,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 0,
+      "pos" : 0
+    }, {
+      "id" : 1,
+      "sorted" : false,
+      "val" : 25,
+      "prepos" : 1,
+      "pos" : 1
+    } ]
+  }, {
+    "seq" : 2,
+    "operation" : "exchanging",
+    "swapelem" : [ {
+      "id" : 1,
+      "sorted" : false,
+      "val" : 25,
+      "prepos" : 1,
+      "pos" : 0
+    }, {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 0,
+      "pos" : 1
+    } ]
+  }, {
+    "seq" : 3,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 0,
+      "pos" : 1
+    }, {
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 2,
+      "pos" : 2
+    } ]
+  }, {
+    "seq" : 4,
+=======
+    "val" : 58,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "prepos" : 9,
     "pos" : 9
   }, {
@@ -6185,11 +6378,52 @@
       "pos" : 22
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 342,
+=======
+    "seq" : 419,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 60, 59, 100, 100, 96, 74, 78, 90, 93, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : 11,
+=======
+<<<<<<< HEAD
+      "id" : 1,
+      "sorted" : false,
+      "val" : 25,
+      "prepos" : 1,
+      "pos" : 0
+    }, {
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 2,
+      "pos" : 2
+    } ]
+  }, {
+    "seq" : 5,
+    "operation" : "exchanging",
+    "swapelem" : [ {
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 2,
+      "pos" : 1
+    }, {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 1,
+      "pos" : 2
+    } ]
+  }, {
+    "seq" : 6,
+=======
+      "id" : 27,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 59,
       "prepos" : 17,
@@ -6219,11 +6453,52 @@
       "pos" : 21
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 344,
+=======
+    "seq" : 421,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 60, 59, 100, 100, 96, 74, 78, 90, 93, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : 4,
+=======
+<<<<<<< HEAD
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 1,
+      "pos" : 2
+    }, {
+      "id" : 3,
+      "sorted" : false,
+      "val" : 93,
+      "prepos" : 3,
+      "pos" : 3
+    } ]
+  }, {
+    "seq" : 7,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 3,
+      "sorted" : false,
+      "val" : 93,
+      "prepos" : 3,
+      "pos" : 3
+    }, {
+      "id" : 4,
+      "sorted" : false,
+      "val" : 26,
+      "prepos" : 4,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 8,
+=======
+      "id" : 26,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 60,
       "prepos" : 18,
@@ -6253,11 +6528,52 @@
       "pos" : 23
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 346,
+=======
+    "seq" : 423,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 100, 100, 96, 74, 78, 90, 93, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : -30,
+=======
+<<<<<<< HEAD
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 1,
+      "pos" : 2
+    }, {
+      "id" : 4,
+      "sorted" : false,
+      "val" : 26,
+      "prepos" : 4,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 9,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 2,
+      "pos" : 1
+    }, {
+      "id" : 4,
+      "sorted" : false,
+      "val" : 26,
+      "prepos" : 4,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 10,
+=======
+      "id" : 20,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 100,
       "prepos" : 16,
@@ -6287,11 +6603,43 @@
       "pos" : 28
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 348,
+=======
+    "seq" : 425,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 78, 100, 96, 74, 100, 90, 93, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : -31,
+=======
+<<<<<<< HEAD
+      "id" : 1,
+      "sorted" : false,
+      "val" : 25,
+      "prepos" : 1,
+      "pos" : 0
+    }, {
+      "id" : 4,
+      "sorted" : false,
+      "val" : 26,
+      "prepos" : 4,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 11,
+    "operation" : "exchanging",
+    "swapelem" : [ {
+      "id" : 4,
+      "sorted" : false,
+      "val" : 26,
+      "prepos" : 2,
+      "pos" : 3
+=======
+      "id" : 9,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 100,
       "prepos" : 17,
@@ -6310,15 +6658,48 @@
     "swapelem" : [ {
       "id" : 9,
       "sorted" : false,
+<<<<<<< HEAD
       "val" : 90,
       "prepos" : 29,
       "pos" : 25
+=======
+      "val" : 28,
+      "prepos" : 16,
+      "pos" : 15
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     }, {
       "id" : -31,
       "sorted" : false,
+<<<<<<< HEAD
       "val" : 100,
       "prepos" : 25,
       "pos" : 29
+=======
+<<<<<<< HEAD
+      "val" : 93,
+      "prepos" : 3,
+      "pos" : 2
+    }, {
+      "id" : 0,
+      "sorted" : false,
+      "val" : 84,
+      "prepos" : 2,
+      "pos" : 1
+    }, {
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 1,
+      "pos" : 4
+    } ]
+  }, {
+    "seq" : 12,
+=======
+      "val" : 58,
+      "prepos" : 15,
+      "pos" : 16
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     } ]
   }, {
     "seq" : 350,
@@ -6355,11 +6736,52 @@
       "pos" : 30
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 352,
+=======
+    "seq" : 429,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 78, 90, 93, 74, 100, 100, 96, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : 2,
+=======
+<<<<<<< HEAD
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 1,
+      "pos" : 4
+    }, {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 5
+    } ]
+  }, {
+    "seq" : 13,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 5
+    }, {
+      "id" : 6,
+      "sorted" : false,
+      "val" : 73,
+      "prepos" : 6,
+      "pos" : 6
+    } ]
+  }, {
+    "seq" : 14,
+=======
+      "id" : 18,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 74,
       "prepos" : 11,
@@ -6389,11 +6811,68 @@
       "pos" : 26
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 354,
+=======
+    "seq" : 431,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 78, 90, 93, 74, 100, 100, 96, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : 9,
+=======
+<<<<<<< HEAD
+      "id" : 6,
+      "sorted" : false,
+      "val" : 73,
+      "prepos" : 6,
+      "pos" : 6
+    }, {
+      "id" : 7,
+      "sorted" : false,
+      "val" : 64,
+      "prepos" : 7,
+      "pos" : 7
+    } ]
+  }, {
+    "seq" : 15,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 5
+    }, {
+      "id" : 7,
+      "sorted" : false,
+      "val" : 64,
+      "prepos" : 7,
+      "pos" : 7
+    } ]
+  }, {
+    "seq" : 16,
+    "operation" : "exchanging",
+    "swapelem" : [ {
+      "id" : 7,
+      "sorted" : false,
+      "val" : 64,
+      "prepos" : 7,
+      "pos" : 6
+    }, {
+      "id" : 6,
+      "sorted" : false,
+      "val" : 73,
+      "prepos" : 6,
+      "pos" : 7
+    } ]
+  }, {
+    "seq" : 17,
+=======
+      "id" : 1,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 90,
       "prepos" : 29,
@@ -6457,15 +6936,72 @@
       "pos" : 25
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 358,
+=======
+    "seq" : 435,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 74, 78, 93, 90, 100, 100, 96, 98 ],
     "swapelem" : [ {
       "id" : 0,
       "sorted" : false,
+<<<<<<< HEAD
       "val" : 93,
       "prepos" : 30,
       "pos" : 26
+=======
+<<<<<<< HEAD
+      "val" : 73,
+      "prepos" : 6,
+      "pos" : 7
+    }, {
+      "id" : 8,
+      "sorted" : false,
+      "val" : 44,
+      "prepos" : 8,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 18,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 7,
+      "sorted" : false,
+      "val" : 64,
+      "prepos" : 7,
+      "pos" : 6
+    }, {
+      "id" : 8,
+      "sorted" : false,
+      "val" : 44,
+      "prepos" : 8,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 19,
+    "operation" : "comparing",
+    "swapelem" : [ {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 5
+    }, {
+      "id" : 8,
+      "sorted" : false,
+      "val" : 44,
+      "prepos" : 8,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 20,
+=======
+      "val" : 56,
+      "prepos" : 9,
+      "pos" : 10
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     }, {
       "id" : 9,
       "sorted" : false,
@@ -6525,11 +7061,64 @@
       "pos" : 30
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 362,
+=======
+    "seq" : 439,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 74, 78, 90, 93, 96, 100, 100, 98 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : -31,
+=======
+<<<<<<< HEAD
+      "id" : 2,
+      "sorted" : false,
+      "val" : 29,
+      "prepos" : 1,
+      "pos" : 4
+    }, {
+      "id" : 8,
+      "sorted" : false,
+      "val" : 44,
+      "prepos" : 8,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 21,
+    "operation" : "exchanging",
+    "swapelem" : [ {
+      "id" : 8,
+      "sorted" : false,
+      "val" : 44,
+      "prepos" : 6,
+      "pos" : 7
+    }, {
+      "id" : 6,
+      "sorted" : false,
+      "val" : 73,
+      "prepos" : 7,
+      "pos" : 6
+    }, {
+      "id" : 7,
+      "sorted" : false,
+      "val" : 64,
+      "prepos" : 6,
+      "pos" : 5
+    }, {
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 8
+    } ]
+  }, {
+    "seq" : 22,
+=======
+      "id" : 28,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 100,
       "prepos" : 25,
@@ -6576,11 +7165,33 @@
       "pos" : 29
     } ]
   }, {
+<<<<<<< HEAD
     "seq" : 365,
+=======
+    "seq" : 443,
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     "operation" : "comparing",
     "array" : [ 1, 2, 2, 17, 17, 19, 20, 30, 33, 34, 35, 36, 38, 39, 43, 46, 46, 48, 50, 51, 57, 59, 59, 60, 74, 78, 90, 93, 96, 98, 100, 100 ],
     "swapelem" : [ {
+<<<<<<< HEAD
       "id" : -30,
+=======
+<<<<<<< HEAD
+      "id" : 5,
+      "sorted" : false,
+      "val" : 54,
+      "prepos" : 5,
+      "pos" : 8
+    }, {
+      "id" : 9,
+      "sorted" : false,
+      "val" : 73,
+      "prepos" : 9,
+      "pos" : 9
+=======
+      "id" : 14,
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
       "sorted" : false,
       "val" : 100,
       "prepos" : 28,
@@ -6588,9 +7199,16 @@
     }, {
       "id" : -31,
       "sorted" : false,
+<<<<<<< HEAD
       "val" : 100,
       "prepos" : 29,
       "pos" : 31
+=======
+      "val" : 28,
+      "prepos" : 8,
+      "pos" : 7
+>>>>>>> 250e8e8faadad3b711d5ad837a8ae888cfa3785b
+>>>>>>> 691b328e2b3daac38aa04da2bbf038074914b698
     } ]
   } ],
   "spent" : 3
