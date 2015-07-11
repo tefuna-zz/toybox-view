@@ -60,7 +60,11 @@ function drawStepAsExchanging() {
           console.log(d);
           return COLOR_COMPLETE;
         } else {
-          return COLOR_UNDONE;
+          if (d.id < 0) {
+            return COLOR_DUMMY;
+          } else {
+            return COLOR_UNDONE;
+          }
         }
       }
     });

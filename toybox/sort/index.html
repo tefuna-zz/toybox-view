@@ -147,6 +147,7 @@
       var COLOR_COMPARING = "#09C100";
       var COLOR_EXCHANGING = "#0000FF";
       var COLOR_COMPLETE = "#FF38E5";
+      var COLOR_DUMMY = "#A4A4A4";
       var COLOR_TEXT = "#000000"
       var MAX_DOMAIN = 100;
       var INTERVAL = 100; // msec
@@ -264,7 +265,14 @@
             height: function(d) {
               return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
             },
-            fill: COLOR_UNDONE
+            fill: function(d) {
+              if (d.id < 0) {
+                return COLOR_DUMMY;
+              } else {
+                return COLOR_UNDONE;
+              }
+            }
+
           });
 
         // add text object.

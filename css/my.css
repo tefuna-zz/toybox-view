@@ -44,6 +44,9 @@ div.my-margin {
 .label-svg-complete {
   background-color: #FF38E5;
 }
+.label-svg-dummy {
+  background-color: #A4A4A4;
+}
 
 /*.axis text {
   font-family: sans-serif;
