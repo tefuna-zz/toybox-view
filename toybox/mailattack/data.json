@@ -1,0 +1,75 @@
+{
+  "date": {
+    "from": "2015-05-01",
+    "to": "2015-06-31"
+  },
+  "node": [{
+    "id": 0,
+    "name": "funayama tetsuo",
+    "addr": "funayama.tetsuo@isid.co.jp",
+    "boss" : false,
+    "limit": 10
+  }, {
+    "id": 1,
+    "name": "endo go",
+    "addr": "endo.go@isid.co.jp",
+    "boss" : true,
+    "limit": 10
+  }, {
+    "id": 2,
+    "name": "kayama isamu",
+    "addr": "kayama.isamu@isid.co.jp",
+    "boss" : false,
+    "limit": 10
+  }, {
+    "id": 3,
+    "name": "maruyama tetsuhiro",
+    "addr": "maruyama.tetsuhiro@isid.co.jp",
+    "boss" : false,
+    "limit": 10
+  }],
+  "link": [{
+    "id": 0,
+    "source": 0,
+    "target": 1,
+    "messageid": "000001",
+    "wt": 1.0
+  }, {
+    "id": 1,
+    "source": 0,
+    "target": 2,
+    "messageid": "000002",
+    "wt": 1.0
+  }, {
+    "id": 2,
+    "source": 0,
+    "target": 3,
+    "messageid": "000003",
+    "wt": 1.0
+  }, {
+    "id": 3,
+    "source": 1,
+    "target": 3,
+    "messageid": "000004",
+    "wt": 1.0
+  }, {
+    "id": 4,
+    "source": 2,
+    "target": 3,
+    "messageid": "000005",
+    "wt": 1.0
+  }],
+  "mail": [{
+    "messageid": "000001",
+    "date": "13 Jul 2015 03:39:54 +0900",
+    "subject": "aaaa"
+  }, {
+    "messageid": "000002",
+    "date": "13 Jul 2015 03:39:54 +0900",
+    "subject": "bbbb"
+  }, {
+    "messageid": "000003",
+    "date": "13 Jul 2015 03:39:54 +0900",
+    "subject": "cccc"
+  }]
+}

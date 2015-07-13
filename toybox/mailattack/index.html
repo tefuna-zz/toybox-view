@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/my.css" rel="stylesheet" />
+
+  <title>mail attack visualization</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>mail attack visualization.</h1>
+    </div>
+
+    <div id="div-request-area">
+      <h2>setup</h2>
+      <div class="my-margin">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="control-label">attack from - to</label>
+            <input type="text" class="form-control" placeholder="from: yyyymmdd" />
+            <input type="text" class="form-control" placeholder="to: yyyymmdd" />
+          </div>
+          <button type="submit" class="btn btn-primary">execute</button>
+          <button type="reset" class="btn btn-default">reset</button>
+        </form>
+      </div>
+    </div>
+    <!-- div-request-area -->
+    <br />
+
+    <hr />
+    <div id="div-result-area">
+      <h2>result</h2>
+      <div id="result" class="my-margin">
+        <div class="row">
+          <div class="col-sm-2">
+            <span class="label label-default label-my">attack from - to</span>
+          </div>
+          <p id="txt-attack-from-to" class="col-sm-2">yyyymmdd - yyyymmdd</p>
+
+          <div class="col-sm-1">
+            <span class="label label-default label-my">node count</span>
+          </div>
+          <p id="txt-node-count" class="col-sm-1">9</p>
+
+          <div class="col-sm-1">
+            <span class="label label-default label-my">mail count</span>
+          </div>
+          <p id="txt-mail-count" class="col-sm-1">99</p>
+        </div>
+        <button class="btn btn-primary col-sm-1" onclick="addLink()">start</button>
+
+      </div>
+      <!-- result -->
+
+      <br />
+
+      <div id="result-image" class="my-margin"> </div>
+      <!-- result-image -->
+
+
+    </div>
+    <!-- div-result-area -->
+  </div>
+  <!-- container -->
+
+
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/d3.js"></script>
+  <script src="js/ma-common.js"></script>
+
+  <script>
+    var AREA_W = 800;
+    var AREA_H = 600;
+    var AREA_PAD = 30;
+
+    var dataset;
+    var svg;
+    var force;
+    var nodes;
+    var links;
+    var count = 0;
+
+    /**
+     * read json file.
+     */
+    d3.json("data.json", function(error, jsondata) {
+      console.log(error);
+      console.log(jsondata);
+      dataset = jsondata;
+
+      $("#txt-attack-from-to").text(dataset.date.from + " - " + dataset.date.to);
+      $("#txt-node-count").text(dataset.node.length);
+      $("#txt-mail-count").text(dataset.mail.length);
+
+      svg = setupGraphArea();
+      update();
+    });
+
+
+    /**
+     *
+     */
+    function setupGraphArea() {
+      console.log("start function setupGraphArea.");
+
+      var svg = d3.select("#result-image").append("svg");
+      svg.attr({
+        width: AREA_W,
+        height: AREA_H
+      });
+      svg.append("g").attr("class", "data");
+
+      force = d3.layout.force();
+      force.nodes(dataset.node);
+      nodes = force.nodes();
+      links = force.links();
+
+      console.log("end function setupGraphArea.");
+
+      return svg;
+    }
+
+    /**
+     *
+     */
+    function addLink(link) {
+      console.log("start function addLink");
+
+      links.push(dataset.link[count]);
+      console.log(links);
+      count++;
+
+      update();
+      console.log("end function addLink");
+    }
+
+
+    /**
+     *
+     */
+    function update() {
+      console.log("start function update.");
+
+      // update link.
+      var link = svg.select("g.data").selectAll(".link")
+        .data(links, function(d) {
+          return d.id;
+        });
+
+      link.enter()
+        .append("line")
+        .attr({
+          "id": function(d) {
+            return d.id;
+          },
+          "class": "link",
+          "stroke": "black",
+          "wt": function(d) {
+            console.log(this);
+            return d.wt;
+          }
+        });
+      link.exit().remove();
+
+
+      // update node.
+      var node = svg.select("g.data").selectAll(".node")
+        .data(nodes, function(d) {
+          return d.id;
+        });
+
+      node.enter()
+        .append("circle")
+        .attr({
+          "id": function(d) {
+            return d.id;
+          },
+          "class": "node"
+        })
+        .attr("r", 10)
+        .call(force.drag);
+
+      force.on("tick", function(d) {
+        node.attr("cx", function(d) {
+            return d.x;
+          })
+          .attr("cy", function(d) {
+            return d.y;
+          });
+
+        link.attr("x1", function(d) {
+            return d.source.x;
+          })
+          .attr("y1", function(d) {
+            return d.source.y;
+          })
+          .attr("x2", function(d) {
+            return d.target.x;
+          })
+          .attr("y2", function(d) {
+            return d.target.y;
+          });
+      });
+
+      // Restart the force layout.
+      force
+        .distance(200)
+        .charge(-200)
+        .linkDistance(200)
+        .gravity(0)
+        .size([AREA_W, AREA_H])
+        .start();
+
+      console.log("end function update.");
+
+    }
+  </script>
+</body>
+
+</html>
