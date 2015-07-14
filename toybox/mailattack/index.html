@@ -91,6 +91,10 @@
     var nodes;
     var links;
     var count = 0;
+    var path;
+    var node;
+    var nodeWeight = [];
+    var linkWeight = [];
 
     /**
      * read json file.
@@ -103,6 +107,12 @@
       $("#txt-attack-from-to").text(dataset.date.from + " - " + dataset.date.to);
       $("#txt-node-count").text(dataset.node.length);
       $("#txt-mail-count").text(dataset.mail.length);
+
+      for (var i = 0; i< dataset.node.length; i++) {
+        var obj = {id: dataset.node[i].id, wt: 1};
+        nodeWeight.push(obj);
+      }
+
 
       svg = setupGraphArea();
       update();
@@ -120,6 +130,20 @@
         width: AREA_W,
         height: AREA_H
       });
+
+      svg.append("defs").selectAll("marker")
+        .data(["end"]) // Different link/path types can be defined here
+        .enter()
+        .append("svg:marker") // This section adds in the arrows
+        .attr("id", String)
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 15)
+        .attr("refY", -1.5)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("svg:path")
+        .attr("d", "M0,-5L10,0L0,5");
       svg.append("g").attr("class", "data");
 
       force = d3.layout.force();
@@ -135,10 +159,23 @@
     /**
      *
      */
-    function addLink(link) {
+    function addLink() {
       console.log("start function addLink");
 
-      links.push(dataset.link[count]);
+      var link = dataset.link[count];
+      // for (var i = 0; i < linkWeight.length; i++) {
+      //     if (link.id = linkWeight[i].id) {
+      //       link.wt = link.wt + linkWeight[i].wt;
+      //       break;
+      //     }
+      // }
+      //
+      // var obj = {id : link}
+      // linkWeight.push(link);
+      links.push(link);
+
+
+
       console.log(links);
       count++;
 
@@ -153,66 +190,48 @@
     function update() {
       console.log("start function update.");
 
-      // update link.
-      var link = svg.select("g.data").selectAll(".link")
+      path = svg.select("g.data").selectAll(".link")
         .data(links, function(d) {
           return d.id;
         });
 
-      link.enter()
-        .append("line")
+      path.enter()
+        .append("path")
         .attr({
           "id": function(d) {
+            console.log($("#" + d.id));
             return d.id;
           },
           "class": "link",
-          "stroke": "black",
-          "wt": function(d) {
-            console.log(this);
-            return d.wt;
-          }
+          "marker-end": "url(#end)"
         });
-      link.exit().remove();
 
 
       // update node.
-      var node = svg.select("g.data").selectAll(".node")
+      node = svg.select("g.data").selectAll(".node")
         .data(nodes, function(d) {
           return d.id;
         });
 
       node.enter()
-        .append("circle")
+        .append("g")
         .attr({
           "id": function(d) {
             return d.id;
           },
           "class": "node"
         })
-        .attr("r", 10)
         .call(force.drag);
 
-      force.on("tick", function(d) {
-        node.attr("cx", function(d) {
-            return d.x;
-          })
-          .attr("cy", function(d) {
-            return d.y;
-          });
+      node.append("circle")
+        .attr("r", 10);
 
-        link.attr("x1", function(d) {
-            return d.source.x;
-          })
-          .attr("y1", function(d) {
-            return d.source.y;
-          })
-          .attr("x2", function(d) {
-            return d.target.x;
-          })
-          .attr("y2", function(d) {
-            return d.target.y;
-          });
-      });
+      node.append("text")
+        .attr("x", 12)
+        .attr("dy", ".35em")
+        .text(function(d) {
+          return d.name;
+        });
 
       // Restart the force layout.
       force
@@ -221,10 +240,33 @@
         .linkDistance(200)
         .gravity(0)
         .size([AREA_W, AREA_H])
+        .on("tick", tick)
         .start();
 
       console.log("end function update.");
 
+    }
+
+
+    /**
+     *
+     */
+    function tick() {
+      path.attr("d", function(d) {
+        var dx = d.target.x - d.source.x,
+          dy = d.target.y - d.source.y,
+          dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" +
+          d.source.x + "," +
+          d.source.y + "A" +
+          dr + "," + dr + " 0 0,1 " +
+          d.target.x + "," +
+          d.target.y;
+      });
+
+      node.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
     }
   </script>
 </body>

@@ -4,59 +4,113 @@
     "to": "2015-06-31"
   },
   "node": [{
-    "id": 0,
+    "id": "n0",
     "name": "funayama tetsuo",
     "addr": "funayama.tetsuo@isid.co.jp",
-    "boss" : false,
+    "boss": false,
     "limit": 10
   }, {
-    "id": 1,
+    "id": "n1",
     "name": "endo go",
     "addr": "endo.go@isid.co.jp",
-    "boss" : true,
+    "boss": true,
     "limit": 10
   }, {
-    "id": 2,
+    "id": "n2",
     "name": "kayama isamu",
     "addr": "kayama.isamu@isid.co.jp",
-    "boss" : false,
+    "boss": false,
     "limit": 10
   }, {
-    "id": 3,
+    "id": "n3",
     "name": "maruyama tetsuhiro",
     "addr": "maruyama.tetsuhiro@isid.co.jp",
-    "boss" : false,
+    "boss": false,
     "limit": 10
   }],
   "link": [{
-    "id": 0,
+    "id": "l0-1",
     "source": 0,
     "target": 1,
     "messageid": "000001",
     "wt": 1.0
   }, {
-    "id": 1,
+    "id": "l0-2",
     "source": 0,
     "target": 2,
     "messageid": "000002",
     "wt": 1.0
   }, {
-    "id": 2,
+    "id": "l0-3",
     "source": 0,
     "target": 3,
     "messageid": "000003",
     "wt": 1.0
   }, {
-    "id": 3,
+    "id": "l1-2",
     "source": 1,
     "target": 3,
     "messageid": "000004",
     "wt": 1.0
   }, {
-    "id": 4,
+    "id": "l2-3",
     "source": 2,
     "target": 3,
     "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000005",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000007",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000010",
+    "wt": 1.0
+  }, {
+    "id": "l3-2",
+    "source": 3,
+    "target": 2,
+    "messageid": "000099",
     "wt": 1.0
   }],
   "mail": [{
