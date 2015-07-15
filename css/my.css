@@ -1,4 +1,4 @@
-/**
+/*!
  * customize.
  */
 
@@ -24,7 +24,9 @@ div.my-margin {
   margin-left: 15px;
 }
 
-/** for svg */
+/*!
+ * for svg - sort visualization.
+ */
 
 .axis path, .axis line {
   fill: none;
@@ -54,23 +56,39 @@ div.my-margin {
 }*/
 
 
-/** for debug. */
+/*!
+ * for svg - mail attack visualization.
+ */
 
-div {
-  border: 1px solid #d3d3d3;
-}
 path.link {
   fill: none;
-  stroke: #666;
+  stroke: #afafaf;
+}
+g.node > circle {
+  fill: #CCCCCC;
+  stroke: #FFFFFF;
   stroke-width: 1.5px;
 }
-circle {
-  fill: #ccc;
-  stroke: #fff;
-  stroke-width: 1.5px;
+g.node > circle.boss {
+  fill: #00accb;
+  stroke: #0043b6;
+  /*stroke-width: 1.5px;*/
 }
-text {
-  fill: #000;
+g.node > circle.overflow {
+  fill: #de2020;
+  stroke: #aa0000;
+  /*stroke-width: 2.5px;*/
+}
+g.node > text {
+  fill: #000000;
   font: 10px sans-serif;
   pointer-events: none;
+}
+
+/*!
+ * for debug.
+ */
+
+div {
+  border: 1px solid #D3D3D3;
 }

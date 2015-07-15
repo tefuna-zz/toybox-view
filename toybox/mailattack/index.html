@@ -84,15 +84,19 @@
     var AREA_W = 800;
     var AREA_H = 600;
     var AREA_PAD = 30;
+    var NODE_R_DEFAULT = 10;
+    var NODE_R_WEIGHT = 2;
+    var LINK_W_DEFAULT = 1.0;
+    var LINK_W_WEIGHT = 0.2;
 
     var dataset;
     var svg;
-    var force;
+    var forceLayout;
     var nodes;
     var links;
     var count = 0;
-    var path;
-    var node;
+    var nodeObj;
+    var linkObj;
     var nodeWeight = [];
     var linkWeight = [];
 
@@ -100,7 +104,10 @@
      * read json file.
      */
     d3.json("data.json", function(error, jsondata) {
-      console.log(error);
+      if (error != null) {
+        console.log(err);
+        return;
+      }
       console.log(jsondata);
       dataset = jsondata;
 
@@ -108,13 +115,16 @@
       $("#txt-node-count").text(dataset.node.length);
       $("#txt-mail-count").text(dataset.mail.length);
 
-      for (var i = 0; i< dataset.node.length; i++) {
-        var obj = {id: dataset.node[i].id, wt: 1};
+      for (var i = 0; i < dataset.node.length; i++) {
+        var obj = {
+          id: dataset.node[i].id,
+          wt: 1
+        };
         nodeWeight.push(obj);
       }
 
-
       svg = setupGraphArea();
+      nodeObj = setupNode();
       update();
     });
 
@@ -131,83 +141,43 @@
         height: AREA_H
       });
 
+      // path arrow definition.
       svg.append("defs").selectAll("marker")
-        .data(["end"]) // Different link/path types can be defined here
+        .data(["end"]) // different link/path types can be defined here
         .enter()
         .append("svg:marker") // This section adds in the arrows
-        .attr("id", String)
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 15)
-        .attr("refY", -1.5)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
-        .attr("orient", "auto")
+        .attr({
+          "id": "arrowhead",
+          "viewBox": "0 -5 10 10",
+          "refX": 8,
+          "refY": -1.5,
+          "markerWidth": 6,
+          "markerHeight": 6,
+          "orient": "auto"
+        })
         .append("svg:path")
         .attr("d", "M0,-5L10,0L0,5");
+
       svg.append("g").attr("class", "data");
 
-      force = d3.layout.force();
-      force.nodes(dataset.node);
-      nodes = force.nodes();
-      links = force.links();
+      // forcelayout setup.
+      forceLayout = d3.layout.force();
+      forceLayout.nodes(dataset.node);
+      nodes = forceLayout.nodes();
+      links = forceLayout.links();
 
       console.log("end function setupGraphArea.");
 
       return svg;
     }
 
-    /**
-     *
-     */
-    function addLink() {
-      console.log("start function addLink");
-
-      var link = dataset.link[count];
-      // for (var i = 0; i < linkWeight.length; i++) {
-      //     if (link.id = linkWeight[i].id) {
-      //       link.wt = link.wt + linkWeight[i].wt;
-      //       break;
-      //     }
-      // }
-      //
-      // var obj = {id : link}
-      // linkWeight.push(link);
-      links.push(link);
-
-
-
-      console.log(links);
-      count++;
-
-      update();
-      console.log("end function addLink");
-    }
-
 
     /**
      *
      */
-    function update() {
-      console.log("start function update.");
+    function setupNode() {
+      console.log("start function setupNode.");
 
-      path = svg.select("g.data").selectAll(".link")
-        .data(links, function(d) {
-          return d.id;
-        });
-
-      path.enter()
-        .append("path")
-        .attr({
-          "id": function(d) {
-            console.log($("#" + d.id));
-            return d.id;
-          },
-          "class": "link",
-          "marker-end": "url(#end)"
-        });
-
-
-      // update node.
       node = svg.select("g.data").selectAll(".node")
         .data(nodes, function(d) {
           return d.id;
@@ -221,20 +191,89 @@
           },
           "class": "node"
         })
-        .call(force.drag);
+        .call(forceLayout.drag);
 
       node.append("circle")
-        .attr("r", 10);
+        .attr({
+          "id": function(d) {
+            return "c_" + d.id;
+          },
+        });
 
       node.append("text")
-        .attr("x", 12)
-        .attr("dy", ".35em")
+        .attr({
+          "id": function(d) {
+            return "t_" + d.id;
+          },
+          "x": 12,
+          "dy": ".35em"
+        })
         .text(function(d) {
           return d.name;
         });
 
-      // Restart the force layout.
-      force
+
+      //  sum of arrows wt.
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].wtsum = 0;
+      }
+
+      console.log("end function setupNode.");
+
+      return node
+    }
+
+
+    /**
+     *
+     */
+    function addLink() {
+      console.log("start function addLink");
+
+      var link = dataset.link[count];
+
+      // calc node weight.
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].id == "n" + link.target) {
+          nodes[i].wtsum = nodes[i].wtsum + link.wt;
+          break;
+        }
+      }
+
+      // calc link weight.
+      var linkExist = false;
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].source.id == "n" + link.source && links[i].target.id == "n" + link.target) {
+          links[i].wtsum = links[i].wtsum + link.wt;
+          linkExist = true;
+          break;
+        }
+      }
+
+      // add as new link.
+      if (linkExist == false) {
+        link.wtsum = link.wt;
+        links.push(link);
+      }
+
+      update();
+      count++;
+
+      console.log("end function addLink");
+    }
+
+
+    /**
+     * update graph images.
+     */
+    function update() {
+      console.log("start function update.");
+
+      updateLink();
+      updateNode();
+
+      // restart the force layout.
+      forceLayout
         .distance(200)
         .charge(-200)
         .linkDistance(200)
@@ -244,15 +283,79 @@
         .start();
 
       console.log("end function update.");
-
     }
 
 
     /**
      *
      */
+    function updateLink() {
+
+      // add link.
+      linkObj = svg.select("g.data").selectAll(".link")
+        .data(links, function(d) {
+          return d.id;
+        });
+
+      linkObj.enter()
+        .append("path")
+        .attr({
+          "id": function(d) {
+            return d.id;
+          },
+          "class": "link",
+          "marker-end": "url(#arrowhead)"
+        });
+
+      // update link.
+      linkObj
+        .attr({
+          "stroke-width": function(d) {
+            // console.log(d);
+            return LINK_W_DEFAULT + LINK_W_WEIGHT * d.wtsum;
+          },
+          // "stroke-dasharray": function(d) {
+          //   console.log(d);
+          //   var totalLength = d.node().getTotalLength();
+          //   var t = totalLength - (10 + 10 + 8);
+          //   return "0 " + 10 + " " + t + " " + 10;
+          // },
+          // "stroke-dasharray": 0
+        });
+    }
+
+
+    /**
+     *
+     */
+    function updateNode() {
+      svg.select("g.data").selectAll(".node")
+        .data(nodes, function(d) {
+          return d.id;
+        })
+        .select("circle")
+        .attr({
+          "class": function(d) {
+            var classes;
+            if ("boss" in d && d.boss == true) {
+              classes = "boss";
+            }
+            if (d.wtsum > d.limit) {
+              classes = classes + " " + "overflow";
+            }
+            return classes;
+          },
+          "r": function(d) {
+            return NODE_R_DEFAULT + NODE_R_WEIGHT * d.wtsum;
+          }
+        });
+    }
+
+    /**
+     * function of force ticks.
+     */
     function tick() {
-      path.attr("d", function(d) {
+      linkObj.attr("d", function(d) {
         var dx = d.target.x - d.source.x,
           dy = d.target.y - d.source.y,
           dr = Math.sqrt(dx * dx + dy * dy);
@@ -264,7 +367,7 @@
           d.target.y;
       });
 
-      node.attr("transform", function(d) {
+      nodeObj.attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
     }

@@ -7,26 +7,23 @@
     "id": "n0",
     "name": "funayama tetsuo",
     "addr": "funayama.tetsuo@isid.co.jp",
-    "boss": false,
-    "limit": 10
+    "limit": 5
   }, {
     "id": "n1",
     "name": "endo go",
     "addr": "endo.go@isid.co.jp",
     "boss": true,
-    "limit": 10
+    "limit": 5
   }, {
     "id": "n2",
     "name": "kayama isamu",
     "addr": "kayama.isamu@isid.co.jp",
-    "boss": false,
-    "limit": 10
+    "limit": 5
   }, {
     "id": "n3",
     "name": "maruyama tetsuhiro",
     "addr": "maruyama.tetsuhiro@isid.co.jp",
-    "boss": false,
-    "limit": 10
+    "limit": 5
   }],
   "link": [{
     "id": "l0-1",
