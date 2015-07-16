@@ -133,172 +133,174 @@
     <div id="footer" class="text-center">
       copyright globy 2015.
     </div>
+  </div>
+  <!-- container -->
 
-    <script src="../../js/jquery-1.11.3.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/d3.js"></script>
-    <script src="js/sort-common.js"></script>
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/d3.js"></script>
+  <script src="js/sort-common.js"></script>
 
-    <script>
-      var AREA_W = 800;
-      var AREA_H = 300;
-      var AREA_PAD = 30;
-      var COLOR_UNDONE = "#25B8F5";
-      var COLOR_COMPARING = "#09C100";
-      var COLOR_EXCHANGING = "#0000FF";
-      var COLOR_COMPLETE = "#FF38E5";
-      var COLOR_DUMMY = "#A4A4A4";
-      var COLOR_TEXT = "#000000"
-      var MAX_DOMAIN = 100;
-      var INTERVAL = 100; // msec
+  <script>
+    var AREA_W = 800;
+    var AREA_H = 300;
+    var AREA_PAD = 30;
+    var COLOR_UNDONE = "#25B8F5";
+    var COLOR_COMPARING = "#09C100";
+    var COLOR_EXCHANGING = "#0000FF";
+    var COLOR_COMPLETE = "#FF38E5";
+    var COLOR_DUMMY = "#A4A4A4";
+    var COLOR_TEXT = "#000000"
+    var MAX_DOMAIN = 100;
+    var INTERVAL = 100; // msec
 
-      var dataset;
-      var steps;
-      var svgOriginal;
-      var svgSteps;
-      var count = 0;
-      var intervalId;
+    var dataset;
+    var steps;
+    var svgOriginal;
+    var svgSteps;
+    var count = 0;
+    var intervalId;
 
-      /**
-       * read json file.
-       */
-      d3.json("data.json", function(error, jsondata) {
-        console.log(error);
-        console.log(jsondata);
-        dataset = jsondata;
-        steps = dataset.steps;
+    /**
+     * read json file.
+     */
+    d3.json("data.json", function(error, jsondata) {
+      console.log(error);
+      console.log(jsondata);
+      dataset = jsondata;
+      steps = dataset.steps;
 
-        svgOriginal = setupGraphArea("#original-graph-area");
-        svgSteps = setupGraphArea("#steps-graph-area");
-        drawInitial(svgOriginal, dataset.original);
-        drawInitial(svgSteps, dataset.original);
+      svgOriginal = setupGraphArea("#original-graph-area");
+      svgSteps = setupGraphArea("#steps-graph-area");
+      drawInitial(svgOriginal, dataset.original);
+      drawInitial(svgSteps, dataset.original);
 
-        $("#txt-sort-name").text(dataset.name);
-        $("#txt-sort-method").text(dataset.method);
-        $("#txt-elements").text(dataset.original.length);
-        $("#txt-time-spent").text(dataset.spent + " msec.");
-        $("#txta-raw-data").text(function() {
-          var rawdata = "";
-          for (var i = 0; i < dataset.original.length; i++) {
-            rawdata = rawdata + dataset.original[i].val
-            if (i != dataset.original.length - 1) {
-              rawdata = rawdata + ", ";
+      $("#txt-sort-name").text(dataset.name);
+      $("#txt-sort-method").text(dataset.method);
+      $("#txt-elements").text(dataset.original.length);
+      $("#txt-time-spent").text(dataset.spent + " msec.");
+      $("#txta-raw-data").text(function() {
+        var rawdata = "";
+        for (var i = 0; i < dataset.original.length; i++) {
+          rawdata = rawdata + dataset.original[i].val
+          if (i != dataset.original.length - 1) {
+            rawdata = rawdata + ", ";
+          }
+        }
+        return rawdata;
+      });
+      $("#txt-step-count").text(count + " / " + steps.length);
+    });
+
+
+    /**
+     * execute sort steps by interval.
+     */
+    function executeSteps() {
+      console.log("start function executeSteps()");
+
+      count = 0;
+
+      drawInitial(svgSteps, dataset.original);
+      clearInterval(intervalId);
+      $("#txta-step-log").text("");
+
+      intervalId = setInterval("procStep()", INTERVAL);
+
+      console.log("end function executeSteps()");
+    }
+
+    /**
+     *  setup #graph-area.
+     */
+    function setupGraphArea(graphId) {
+      console.log("start function setupGraphArea.");
+
+      // create svg.
+      var svg = d3.select(graphId).append("svg");
+      svg.append("g").attr("class", "data");
+      svg.attr("width", AREA_W).attr("height", AREA_H);
+
+      // define axis.
+      var yScale = d3.scale.linear()
+        .domain([0, MAX_DOMAIN])
+        .range([AREA_H - AREA_PAD, AREA_PAD]);
+      var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + AREA_PAD + ", 0)")
+        .call(yAxis);
+
+      console.log("end function setupGraphArea.");
+
+      return svg;
+    }
+
+
+    /**
+     *  draw initial graph.
+     */
+    function drawInitial(svg, original) {
+      console.log("start function drawInitial.");
+
+      // clear all graph objecct.
+      svg.select("g.data").selectAll("rect")
+        .data([]).exit().remove();
+      svg.select("g.data").selectAll("text")
+        .data([]).exit().remove();
+
+      // add rect object.
+      svg.select("g.data").selectAll("rect")
+        .data(original, function(d) {
+          return d.id;
+        })
+        .enter()
+        .append("rect")
+        .attr({
+          x: function(d, i) {
+            return i * (AREA_W - AREA_PAD) / original.length + AREA_PAD;
+          },
+          y: function(d) {
+            return AREA_H - d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN) - AREA_PAD;
+          },
+          width: (AREA_W - AREA_PAD) / original.length - 2,
+          height: function(d) {
+            return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
+          },
+          fill: function(d) {
+            if (d.id < 0) {
+              return COLOR_DUMMY;
+            } else {
+              return COLOR_UNDONE;
             }
           }
-          return rawdata;
+
         });
-        $("#txt-step-count").text(count + " / " + steps.length);
-      });
 
+      // add text object.
+      svg.select("g.data").selectAll("text")
+        .data(original, function(d) {
+          return d.id;
+        })
+        .enter()
+        .append("text")
+        .text(function(d) {
+          return d.id + "(" + d.val + ")";
+        })
+        .attr({
+          "text-anchor": "middle",
+          x: function(d, i) {
+            return i * (AREA_W - AREA_PAD) / original.length + (AREA_W / original.length - 1) / 2 + AREA_PAD;
+          },
+          y: function(d) {
+            return AREA_H - 5 - AREA_PAD;
+          },
+          fill: COLOR_TEXT
+        });
 
-      /**
-       * execute sort steps by interval.
-       */
-      function executeSteps() {
-        console.log("start function executeSteps()");
-
-        count = 0;
-
-        drawInitial(svgSteps, dataset.original);
-        clearInterval(intervalId);
-        $("#txta-step-log").text("");
-
-        intervalId = setInterval("procStep()", INTERVAL);
-
-        console.log("end function executeSteps()");
-      }
-
-      /**
-       *  setup #graph-area.
-       */
-      function setupGraphArea(graphId) {
-        console.log("start function setupGraphArea.");
-
-        // create svg.
-        var svg = d3.select(graphId).append("svg");
-        svg.append("g").attr("class", "data");
-        svg.attr("width", AREA_W).attr("height", AREA_H);
-
-        // define axis.
-        var yScale = d3.scale.linear()
-          .domain([0, MAX_DOMAIN])
-          .range([AREA_H - AREA_PAD, AREA_PAD]);
-        var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
-        svg.append("g")
-          .attr("class", "axis")
-          .attr("transform", "translate(" + AREA_PAD + ", 0)")
-          .call(yAxis);
-
-        console.log("end function setupGraphArea.");
-
-        return svg;
-      }
-
-
-      /**
-       *  draw initial graph.
-       */
-      function drawInitial(svg, original) {
-        console.log("start function drawInitial.");
-
-        // clear all graph objecct.
-        svg.select("g.data").selectAll("rect")
-          .data([]).exit().remove();
-        svg.select("g.data").selectAll("text")
-          .data([]).exit().remove();
-
-        // add rect object.
-        svg.select("g.data").selectAll("rect")
-          .data(original, function(d) {
-            return d.id;
-          })
-          .enter()
-          .append("rect")
-          .attr({
-            x: function(d, i) {
-              return i * (AREA_W - AREA_PAD) / original.length + AREA_PAD;
-            },
-            y: function(d) {
-              return AREA_H - d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN) - AREA_PAD;
-            },
-            width: (AREA_W - AREA_PAD) / original.length - 2,
-            height: function(d) {
-              return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
-            },
-            fill: function(d) {
-              if (d.id < 0) {
-                return COLOR_DUMMY;
-              } else {
-                return COLOR_UNDONE;
-              }
-            }
-
-          });
-
-        // add text object.
-        svg.select("g.data").selectAll("text")
-          .data(original, function(d) {
-            return d.id;
-          })
-          .enter()
-          .append("text")
-          .text(function(d) {
-            return d.id + "(" + d.val + ")";
-          })
-          .attr({
-            "text-anchor": "middle",
-            x: function(d, i) {
-              return i * (AREA_W - AREA_PAD) / original.length + (AREA_W / original.length - 1) / 2 + AREA_PAD;
-            },
-            y: function(d) {
-              return AREA_H - 5 - AREA_PAD;
-            },
-            fill: COLOR_TEXT
-          });
-
-        console.log("end function drawInitial.");
-      }
-    </script>
+      console.log("end function drawInitial.");
+    }
+  </script>
 
 </body>
 

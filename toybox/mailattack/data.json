@@ -1,7 +1,7 @@
 {
   "date": {
-    "from": "2015-05-01",
-    "to": "2015-06-31"
+    "from": "2015/05/01",
+    "to": "2015/06/31"
   },
   "node": [{
     "id": "n0",
@@ -24,103 +24,209 @@
     "name": "maruyama tetsuhiro",
     "addr": "maruyama.tetsuhiro@isid.co.jp",
     "limit": 5
+  }, {
+    "id": "n4",
+    "name": "tanaka yusuke",
+    "addr": "tyusuke@isid.co.jp",
+    "boss": true,
+    "limit": 5
+  }, {
+    "id": "n5",
+    "name": "kumazaki yusuke",
+    "addr": "kumazaki.yusuke@isid.co.jp",
+    "limit": 5
+  }, {
+    "id": "n6",
+    "name": "miura ryohsuke",
+    "addr": "miura.ryohsuke@isid.co.jp",
+    "limit": 5
   }],
   "link": [{
-    "id": "l0-1",
+    "messageid": "000001",
     "source": 0,
     "target": 1,
-    "messageid": "000001",
     "wt": 1.0
   }, {
-    "id": "l0-2",
+    "messageid": "000001",
     "source": 0,
     "target": 2,
-    "messageid": "000002",
     "wt": 1.0
   }, {
-    "id": "l0-3",
+    "messageid": "000002",
     "source": 0,
     "target": 3,
+    "wt": 1.0
+  }, {
     "messageid": "000003",
-    "wt": 1.0
-  }, {
-    "id": "l1-2",
-    "source": 1,
-    "target": 3,
-    "messageid": "000004",
-    "wt": 1.0
-  }, {
-    "id": "l2-3",
     "source": 2,
     "target": 3,
-    "messageid": "000005",
     "wt": 1.0
   }, {
-    "id": "l3-2",
+    "messageid": "000004",
     "source": 3,
-    "target": 2,
-    "messageid": "000005",
+    "target": 0,
     "wt": 1.0
   }, {
-    "id": "l3-2",
+    "messageid": "000004",
     "source": 3,
     "target": 2,
-    "messageid": "000005",
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
-    "target": 2,
     "messageid": "000005",
+    "source": 1,
+    "target": 0,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
-    "target": 2,
     "messageid": "000005",
+    "source": 1,
+    "target": 1,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
-    "target": 2,
     "messageid": "000005",
+    "source": 1,
+    "target": 2,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
-    "target": 2,
     "messageid": "000005",
+    "source": 1,
+    "target": 4,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
-    "target": 2,
+    "messageid": "000006",
+    "source": 4,
+    "target": 5,
+    "wt": 1.0
+  }, {
+    "messageid": "000006",
+    "source": 4,
+    "target": 6,
+    "wt": 1.0
+  }, {
     "messageid": "000007",
+    "source": 5,
+    "target": 6,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
+    "messageid": "000007",
+    "source": 5,
+    "target": 4,
+    "wt": 1.0
+  }, {
+    "messageid": "000008",
+    "source": 4,
+    "target": 1,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
+    "target": 0,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
+    "target": 1,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
     "target": 2,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
+    "target": 3,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
+    "target": 5,
+    "wt": 1.0
+  }, {
+    "messageid": "000009",
+    "source": 4,
+    "target": 6,
+    "wt": 1.0
+  }, {
     "messageid": "000010",
+    "source": 6,
+    "target": 5,
     "wt": 1.0
   }, {
-    "id": "l3-2",
-    "source": 3,
+    "messageid": "000011",
+    "source": 4,
     "target": 2,
-    "messageid": "000099",
+    "wt": 1.0
+  }, {
+    "messageid": "000012",
+    "source": 4,
+    "target": 2,
+    "wt": 1.0
+  }, {
+    "messageid": "000013",
+    "source": 4,
+    "target": 2,
+    "wt": 1.0
+  }, {
+    "messageid": "000014",
+    "source": 4,
+    "target": 2,
     "wt": 1.0
   }],
   "mail": [{
     "messageid": "000001",
-    "date": "13 Jul 2015 03:39:54 +0900",
+    "date": "2015/01/01",
     "subject": "aaaa"
   }, {
     "messageid": "000002",
-    "date": "13 Jul 2015 03:39:54 +0900",
+    "date": "2015/01/01",
     "subject": "bbbb"
   }, {
     "messageid": "000003",
-    "date": "13 Jul 2015 03:39:54 +0900",
+    "date": "2015/01/01",
     "subject": "cccc"
+  }, {
+    "messageid": "000004",
+    "date": "2015/01/01",
+    "subject": "dddd"
+  }, {
+    "messageid": "000005",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000006",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000007",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000008",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000009",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000010",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000011",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000012",
+    "date": "2015/01/02",
+    "subject": "eeee"
+  }, {
+    "messageid": "000013",
+    "date": "2015/01/01",
+    "subject": "eeee"
+  }, {
+    "messageid": "000014",
+    "date": "2015/01/01",
+    "subject": "eeee"
   }]
 }

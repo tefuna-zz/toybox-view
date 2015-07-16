@@ -26,7 +26,7 @@
       <div class="my-margin">
         <form class="form-inline">
           <div class="form-group">
-            <label class="control-label">attack from - to</label>
+            <label class="control-label">from - to</label>
             <input type="text" class="form-control" placeholder="from: yyyymmdd" />
             <input type="text" class="form-control" placeholder="to: yyyymmdd" />
           </div>
@@ -43,22 +43,40 @@
       <h2>result</h2>
       <div id="result" class="my-margin">
         <div class="row">
-          <div class="col-sm-2">
-            <span class="label label-default label-my">attack from - to</span>
-          </div>
-          <p id="txt-attack-from-to" class="col-sm-2">yyyymmdd - yyyymmdd</p>
+          <label class="col-md-1">from - to</label>
+          <p id="txt-from-to" class="col-md-2">-</p>
 
-          <div class="col-sm-1">
-            <span class="label label-default label-my">node count</span>
-          </div>
-          <p id="txt-node-count" class="col-sm-1">9</p>
+          <label class="control-label col-md-1">nodes</label>
+          <p id="txt-node-total" class="col-md-1">-</p>
 
-          <div class="col-sm-1">
-            <span class="label label-default label-my">mail count</span>
-          </div>
-          <p id="txt-mail-count" class="col-sm-1">99</p>
+          <label class="control-label col-md-1">mails</label>
+          <p id="txt-mail-total" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">links</label>
+          <p id="txt-link-total" class="col-md-1">-</p>
         </div>
-        <button class="btn btn-primary col-sm-1" onclick="addLink()">start</button>
+
+        <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-block" onclick="addLink()">next</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-block" onclick="startStep()">start</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-default btn-block" onclick="stopStep()">stop</button>
+          </div>
+
+          <label class="control-label col-md-1">mail date</label>
+          <p id="txt-now-date" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">messageid</label>
+          <p id="txt-now-messageid" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">linkcount</label>
+          <p id="txt-now-link-count" class="col-md-1">-</p>
+        </div>
+
 
       </div>
       <!-- result -->
@@ -71,8 +89,14 @@
 
     </div>
     <!-- div-result-area -->
+
+    <hr />
+    <div id="footer" class="text-center">
+      copyright globy 2015.
+    </div>
   </div>
   <!-- container -->
+
 
 
   <script src="../../js/jquery-1.11.3.js"></script>
@@ -81,24 +105,33 @@
   <script src="js/ma-common.js"></script>
 
   <script>
-    var AREA_W = 800;
-    var AREA_H = 600;
-    var AREA_PAD = 30;
+    var AREA_MARGIN = {
+      TOP: 10,
+      RIGHT: 10,
+      BOTTOM: 10,
+      LEFT: 10
+    };
+    var AREA = {
+      W: 960 - (AREA_MARGIN.RIGHT + AREA_MARGIN.LEFT),
+      H: 800 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
+    };
     var NODE_R_DEFAULT = 10;
     var NODE_R_WEIGHT = 2;
     var LINK_W_DEFAULT = 1.0;
     var LINK_W_WEIGHT = 0.2;
+    var INTERVAL = 1000; // msec
 
     var dataset;
     var svg;
     var forceLayout;
     var nodes;
     var links;
-    var count = 0;
+    var tooltip;
     var nodeObj;
     var linkObj;
-    var nodeWeight = [];
-    var linkWeight = [];
+    var mailcount = 0;
+    var intervalId;
+
 
     /**
      * read json file.
@@ -111,17 +144,10 @@
       console.log(jsondata);
       dataset = jsondata;
 
-      $("#txt-attack-from-to").text(dataset.date.from + " - " + dataset.date.to);
-      $("#txt-node-count").text(dataset.node.length);
-      $("#txt-mail-count").text(dataset.mail.length);
-
-      for (var i = 0; i < dataset.node.length; i++) {
-        var obj = {
-          id: dataset.node[i].id,
-          wt: 1
-        };
-        nodeWeight.push(obj);
-      }
+      $("#txt-from-to").text(dataset.date.from + " - " + dataset.date.to);
+      $("#txt-node-total").text(dataset.node.length);
+      $("#txt-mail-total").text(dataset.mail.length);
+      $("#txt-link-total").text(dataset.link.length);
 
       svg = setupGraphArea();
       nodeObj = setupNode();
@@ -137,8 +163,9 @@
 
       var svg = d3.select("#result-image").append("svg");
       svg.attr({
-        width: AREA_W,
-        height: AREA_H
+        "id": "svg",
+        width: AREA.W,
+        height: AREA.H
       });
 
       // path arrow definition.
@@ -170,7 +197,6 @@
 
       return svg;
     }
-
 
     /**
      *
@@ -212,14 +238,12 @@
           return d.name;
         });
 
-
       //  sum of arrows wt.
       for (var i = 0; i < nodes.length; i++) {
         nodes[i].wtsum = 0;
       }
 
       console.log("end function setupNode.");
-
       return node
     }
 
@@ -227,37 +251,83 @@
     /**
      *
      */
+    function startStep() {
+      console.log("start function startStep");
+
+      clearInterval(intervalId);
+      intervalId = setInterval("addLink()", INTERVAL);
+
+      console.log("end function startStep");
+    }
+
+
+    /**
+     *
+     */
+    function stopStep() {
+      console.log("start function stopStep");
+
+      clearInterval(intervalId);
+
+      console.log("end function stopStep");
+    }
+
+
+    /**
+     *
+     */
     function addLink() {
-      console.log("start function addLink");
+      console.log("start function addLink: " + mailcount);
 
-      var link = dataset.link[count];
+      if (dataset.mail.length <= mailcount) {
+        stopStep();
+        return;
+      }
 
-      // calc node weight.
-      for (var i = 0; i < nodes.length; i++) {
-        if (nodes[i].id == "n" + link.target) {
-          nodes[i].wtsum = nodes[i].wtsum + link.wt;
-          break;
+      var t = [];
+      for (var i = 0; i < dataset.link.length; i++) {
+        if (dataset.mail[mailcount].messageid === dataset.link[i].messageid) {
+          t.push(dataset.link[i]);
         }
       }
 
-      // calc link weight.
-      var linkExist = false;
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].source.id == "n" + link.source && links[i].target.id == "n" + link.target) {
-          links[i].wtsum = links[i].wtsum + link.wt;
-          linkExist = true;
-          break;
+      for (var i = 0; i < t.length; i++) {
+        var link = t[i];
+        link.id = "l" + link.source + "-" + link.target;
+
+        // calc node weight.
+        for (var j = 0; j < nodes.length; j++) {
+          if (nodes[j].id == "n" + link.target) {
+            nodes[j].wtsum = nodes[j].wtsum + link.wt;
+            break;
+          }
+        }
+
+        // calc link weight.
+        var linkExist = false;
+        for (var j = 0; j < links.length; j++) {
+          if (links[j].source.id == "n" + link.source && links[j].target.id == "n" + link.target) {
+            links[j].wtsum = links[j].wtsum + link.wt;
+            linkExist = true;
+            break;
+          }
+        }
+
+        // add as new link.
+        if (linkExist == false) {
+          link.wtsum = link.wt;
+          links.push(link);
+          console.log("new link: " + link.source + ", " + link.target);
+          console.log(link);
         }
       }
 
-      // add as new link.
-      if (linkExist == false) {
-        link.wtsum = link.wt;
-        links.push(link);
-      }
+      $("#txt-now-messageid").text(dataset.mail[mailcount].messageid);
+      $("#txt-now-date").text(dataset.mail[mailcount].date);
+      $("#txt-now-link-count").text(links.length);
 
       update();
-      count++;
+      mailcount++;
 
       console.log("end function addLink");
     }
@@ -274,11 +344,11 @@
 
       // restart the force layout.
       forceLayout
-        .distance(200)
+        .distance(300)
         .charge(-200)
-        .linkDistance(200)
-        .gravity(0)
-        .size([AREA_W, AREA_H])
+        .linkDistance(300)
+        .gravity(0.02)
+        .size([AREA.W, AREA.H])
         .on("tick", tick)
         .start();
 
@@ -290,14 +360,12 @@
      *
      */
     function updateLink() {
-
       // add link.
       linkObj = svg.select("g.data").selectAll(".link")
         .data(links, function(d) {
           return d.id;
-        });
-
-      linkObj.enter()
+        })
+        .enter()
         .append("path")
         .attr({
           "id": function(d) {
@@ -308,7 +376,10 @@
         });
 
       // update link.
-      linkObj
+      linkObj = svg.select("g.data").selectAll(".link")
+        .data(links, function(d) {
+          return d.id;
+        })
         .attr({
           "stroke-width": function(d) {
             // console.log(d);
@@ -322,6 +393,7 @@
           // },
           // "stroke-dasharray": 0
         });
+
     }
 
 
@@ -349,6 +421,7 @@
             return NODE_R_DEFAULT + NODE_R_WEIGHT * d.wtsum;
           }
         });
+
     }
 
     /**

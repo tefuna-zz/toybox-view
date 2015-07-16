@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/my.css" rel="stylesheet" />
+  <link href="./css/jmareport.css" rel="stylesheet" />
+
+  <title>meteorological report</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>meteorological report.</h1>
+    </div>
+    <div id="main-container" class="my-margin">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row">
+            <h4>report visual.</h4>
+            <div id="svg-area" class="col-md-12">
+              map here.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="row">
+            <h4>event message.</h4>
+            <div class="col-md-12">
+              <pre id="event-message" class="message">
+                event message here.
+              </pre>
+            </div>
+          </div>
+          <p />
+          <div class="row">
+            <h4>report message.</h4>
+            <div class="col-md-12">
+              <pre id="report-message" class="message">
+                report message here.
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main-container -->
+
+    <hr />
+    <div id="footer" class="text-center">
+      copyright globy 2015.
+    </div>
+  </div>
+  <!-- container -->
+
+
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/d3.js"></script>
+  <script>
+    var AREA_MARGIN = {
+      TOP: 10,
+      RIGHT: 10,
+      BOTTOM: 10,
+      LEFT: 10
+    }
+    var AREA = {
+      W: 100,
+      H: 500 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
+    };
+
+    var svg;
+
+
+    svg = setupGraphArea();
+
+
+    /**
+     *
+     */
+    function setupGraphArea() {
+      console.log("start function setupGraphArea.");
+
+      var svg = d3.select("#svg-area").append("svg");
+      svg.attr({
+        "id": "svg",
+        "preserveAspectRatio": "none",
+        "viewBox": "0 0 1500 1000"
+          // width: 100%,
+          // height: AREA.H
+      });
+
+      console.log("end function setupGraphArea.");
+
+      return svg;
+    }
+  </script>
+</body>
+
+</html>
