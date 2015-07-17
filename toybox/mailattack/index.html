@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/my.css" rel="stylesheet" />
+
+  <title>mail attack visualization</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>mail attack visualization.</h1>
+    </div>
+
+    <div id="div-request-area">
+      <h2>setup</h2>
+      <div class="my-margin">
+        <form class="form-inline">
+          <div class="form-group">
+            <label class="control-label">from - to</label>
+            <input type="text" class="form-control" placeholder="from: yyyymmdd" />
+            <input type="text" class="form-control" placeholder="to: yyyymmdd" />
+          </div>
+          <button type="submit" class="btn btn-primary">execute</button>
+          <button type="reset" class="btn btn-default">reset</button>
+        </form>
+      </div>
+    </div>
+    <!-- div-request-area -->
+    <br />
+
+    <hr />
+    <div id="div-result-area">
+      <h2>result</h2>
+      <div id="result" class="my-margin">
+        <div class="row">
+          <label class="col-md-1">from - to</label>
+          <p id="txt-from-to" class="col-md-2">-</p>
+
+          <label class="control-label col-md-1">nodes</label>
+          <p id="txt-node-total" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">mails</label>
+          <p id="txt-mail-total" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">links</label>
+          <p id="txt-link-total" class="col-md-1">-</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-block" onclick="addLink()">next</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-primary btn-block" onclick="startStep()">start</button>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-default btn-block" onclick="stopStep()">stop</button>
+          </div>
+
+          <label class="control-label col-md-1">mail date</label>
+          <p id="txt-now-date" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">messageid</label>
+          <p id="txt-now-messageid" class="col-md-1">-</p>
+
+          <label class="control-label col-md-1">linkcount</label>
+          <p id="txt-now-link-count" class="col-md-1">-</p>
+        </div>
+
+
+      </div>
+      <!-- result -->
+
+      <br />
+
+      <div id="result-image" class="my-margin"> </div>
+      <!-- result-image -->
+
+
+    </div>
+    <!-- div-result-area -->
+
+    <hr />
+    <div id="footer" class="text-center">
+      copyright globy 2015.
+    </div>
+  </div>
+  <!-- container -->
+
+
+
+  <script src="../../js/jquery-1.11.3.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/d3.js"></script>
+  <script src="js/ma-common.js"></script>
+
+  <script>
+    var AREA_MARGIN = {
+      TOP: 10,
+      RIGHT: 10,
+      BOTTOM: 10,
+      LEFT: 10
+    };
+    var AREA = {
+      W: 960 - (AREA_MARGIN.RIGHT + AREA_MARGIN.LEFT),
+      H: 800 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
+    };
+    var NODE_R_DEFAULT = 10;
+    var NODE_R_WEIGHT = 2;
+    var LINK_W_DEFAULT = 1.0;
+    var LINK_W_WEIGHT = 0.2;
+    var INTERVAL = 1000; // msec
+
+    var dataset;
+    var svg;
+    var forceLayout;
+    var nodes;
+    var links;
+    var tooltip;
+    var nodeObj;
+    var linkObj;
+    var mailcount = 0;
+    var intervalId;
+
+
+    /**
+     * read json file.
+     */
+    d3.json("data.json", function(error, jsondata) {
+      if (error != null) {
+        console.log(err);
+        return;
+      }
+      console.log(jsondata);
+      dataset = jsondata;
+
+      $("#txt-from-to").text(dataset.date.from + " - " + dataset.date.to);
+      $("#txt-node-total").text(dataset.node.length);
+      $("#txt-mail-total").text(dataset.mail.length);
+      $("#txt-link-total").text(dataset.link.length);
+
+      svg = setupGraphArea();
+      nodeObj = setupNode();
+      update();
+    });
+
+
+    /**
+     *
+     */
+    function setupGraphArea() {
+      console.log("start function setupGraphArea.");
+
+      var svg = d3.select("#result-image").append("svg");
+      svg.attr({
+        "id": "svg",
+        width: AREA.W,
+        height: AREA.H
+      });
+
+      // path arrow definition.
+      svg.append("defs").selectAll("marker")
+        .data(["end"]) // different link/path types can be defined here
+        .enter()
+        .append("svg:marker") // This section adds in the arrows
+        .attr({
+          "id": "arrowhead",
+          "viewBox": "0 -5 10 10",
+          "refX": 8,
+          "refY": -1.5,
+          "markerWidth": 6,
+          "markerHeight": 6,
+          "orient": "auto"
+        })
+        .append("svg:path")
+        .attr("d", "M0,-5L10,0L0,5");
+
+      svg.append("g").attr("class", "data");
+
+      // forcelayout setup.
+      forceLayout = d3.layout.force();
+      forceLayout.nodes(dataset.node);
+      nodes = forceLayout.nodes();
+      links = forceLayout.links();
+
+      console.log("end function setupGraphArea.");
+
+      return svg;
+    }
+
+    /**
+     *
+     */
+    function setupNode() {
+      console.log("start function setupNode.");
+
+      node = svg.select("g.data").selectAll(".node")
+        .data(nodes, function(d) {
+          return d.id;
+        });
+
+      node.enter()
+        .append("g")
+        .attr({
+          "id": function(d) {
+            return d.id;
+          },
+          "class": "node"
+        })
+        .call(forceLayout.drag);
+
+      node.append("circle")
+        .attr({
+          "id": function(d) {
+            return "c_" + d.id;
+          },
+        });
+
+      node.append("text")
+        .attr({
+          "id": function(d) {
+            return "t_" + d.id;
+          },
+          "x": 12,
+          "dy": ".35em"
+        })
+        .text(function(d) {
+          return d.name;
+        });
+
+      //  sum of arrows wt.
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].wtsum = 0;
+      }
+
+      console.log("end function setupNode.");
+      return node
+    }
+
+
+    /**
+     *
+     */
+    function startStep() {
+      console.log("start function startStep");
+
+      clearInterval(intervalId);
+      intervalId = setInterval("addLink()", INTERVAL);
+
+      console.log("end function startStep");
+    }
+
+
+    /**
+     *
+     */
+    function stopStep() {
+      console.log("start function stopStep");
+
+      clearInterval(intervalId);
+
+      console.log("end function stopStep");
+    }
+
+
+    /**
+     *
+     */
+    function addLink() {
+      console.log("start function addLink: " + mailcount);
+
+      if (dataset.mail.length <= mailcount) {
+        stopStep();
+        return;
+      }
+
+      var t = [];
+      for (var i = 0; i < dataset.link.length; i++) {
+        if (dataset.mail[mailcount].messageid === dataset.link[i].messageid) {
+          t.push(dataset.link[i]);
+        }
+      }
+
+      for (var i = 0; i < t.length; i++) {
+        var link = t[i];
+        link.id = "l" + link.source + "-" + link.target;
+
+        // calc node weight.
+        for (var j = 0; j < nodes.length; j++) {
+          if (nodes[j].id == "n" + link.target) {
+            nodes[j].wtsum = nodes[j].wtsum + link.wt;
+            break;
+          }
+        }
+
+        // calc link weight.
+        var linkExist = false;
+        for (var j = 0; j < links.length; j++) {
+          if (links[j].source.id == "n" + link.source && links[j].target.id == "n" + link.target) {
+            links[j].wtsum = links[j].wtsum + link.wt;
+            linkExist = true;
+            break;
+          }
+        }
+
+        // add as new link.
+        if (linkExist == false) {
+          link.wtsum = link.wt;
+          links.push(link);
+          console.log("new link: " + link.source + ", " + link.target);
+          console.log(link);
+        }
+      }
+
+      $("#txt-now-messageid").text(dataset.mail[mailcount].messageid);
+      $("#txt-now-date").text(dataset.mail[mailcount].date);
+      $("#txt-now-link-count").text(links.length);
+
+      update();
+      mailcount++;
+
+      console.log("end function addLink");
+    }
+
+
+    /**
+     * update graph images.
+     */
+    function update() {
+      console.log("start function update.");
+
+      updateLink();
+      updateNode();
+
+      // restart the force layout.
+      forceLayout
+        .distance(300)
+        .charge(-200)
+        .linkDistance(300)
+        .gravity(0.02)
+        .size([AREA.W, AREA.H])
+        .on("tick", tick)
+        .start();
+
+      console.log("end function update.");
+    }
+
+
+    /**
+     *
+     */
+    function updateLink() {
+      // add link.
+      linkObj = svg.select("g.data").selectAll(".link")
+        .data(links, function(d) {
+          return d.id;
+        })
+        .enter()
+        .append("path")
+        .attr({
+          "id": function(d) {
+            return d.id;
+          },
+          "class": "link",
+          "marker-end": "url(#arrowhead)"
+        });
+
+      // update link.
+      linkObj = svg.select("g.data").selectAll(".link")
+        .data(links, function(d) {
+          return d.id;
+        })
+        .attr({
+          "stroke-width": function(d) {
+            // console.log(d);
+            return LINK_W_DEFAULT + LINK_W_WEIGHT * d.wtsum;
+          },
+          // "stroke-dasharray": function(d) {
+          //   console.log(d);
+          //   var totalLength = d.node().getTotalLength();
+          //   var t = totalLength - (10 + 10 + 8);
+          //   return "0 " + 10 + " " + t + " " + 10;
+          // },
+          // "stroke-dasharray": 0
+        });
+
+    }
+
+
+    /**
+     *
+     */
+    function updateNode() {
+      svg.select("g.data").selectAll(".node")
+        .data(nodes, function(d) {
+          return d.id;
+        })
+        .select("circle")
+        .attr({
+          "class": function(d) {
+            var classes;
+            if ("boss" in d && d.boss == true) {
+              classes = "boss";
+            }
+            if (d.wtsum > d.limit) {
+              classes = classes + " " + "overflow";
+            }
+            return classes;
+          },
+          "r": function(d) {
+            return NODE_R_DEFAULT + NODE_R_WEIGHT * d.wtsum;
+          }
+        });
+
+    }
+
+    /**
+     * function of force ticks.
+     */
+    function tick() {
+      linkObj.attr("d", function(d) {
+        var dx = d.target.x - d.source.x,
+          dy = d.target.y - d.source.y,
+          dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" +
+          d.source.x + "," +
+          d.source.y + "A" +
+          dr + "," + dr + " 0 0,1 " +
+          d.target.x + "," +
+          d.target.y;
+      });
+
+      nodeObj.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+    }
+  </script>
+</body>
+
+</html>

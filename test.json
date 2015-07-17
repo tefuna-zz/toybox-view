@@ -1,0 +1,107 @@
+{
+  "report": {
+    "body": {
+      "any": [],
+      "volcanoInfo": [{
+        "item": [{
+          "any": [],
+          "areas": {
+            "area": [{
+              "any": [],
+              "code": "506",
+              "coordinate": {
+                "description": "北緯３１度３４．６３分　東経１３０度３９．５３分　標高１０６０ｍ",
+                "value": "+3134.63+13039.53+1060/"
+              },
+              "craterCoordinate": {
+                "description": "北緯３１度３４．６３分　東経１３０度３９．５３分　標高８００ｍ",
+                "value": "+3134.63+13039.53+800/"
+              },
+              "craterName": "昭和火口",
+              "name": "桜島"
+            }],
+            "codeType": "火山名"
+          },
+          "eventTime": {
+            "any": [],
+            "eventDateTime": "2013-01-07T01:02:00+09:00",
+            "eventDateTimeUTC": "2013-01-06T16:02:00Z"
+          },
+          "kind": {
+            "any": [],
+            "code": "51",
+            "name": "爆発"
+          }
+        }],
+        "type": "噴火に関する火山観測報"
+      }],
+      "volcanoObservation": {
+        "any": [],
+        "colorPlume": {
+          "any": [],
+          "plumeDirection": {
+            "description": "南東",
+            "type": "噴煙の流向",
+            "unit": "漢字",
+            "value": "南東"
+          },
+          "plumeHeightAboveCrater": {
+            "description": "火口上1200m",
+            "type": "火口上噴煙高度",
+            "unit": "m",
+            "value": "1200"
+          },
+          "plumeHeightAboveSeaLevel": {
+            "description": "海抜6600FT",
+            "type": "海抜噴煙高度",
+            "unit": "FT",
+            "value": "6600"
+          }
+        },
+        "otherObservation": "横山最大振幅：4.3μm\n爆発音：なし\n体感空振：中\n東郡元空振計：26.1Pa\n瀬戸空振計：100.4Pa\n弾道を描いて飛散する大きな噴石：4合目(昭和火口より800から1300m)\n噴煙量：中量\n火口：昭和火口\n今年9回目"
+      }
+    },
+    "control": {
+      "dateTime": "2013-01-06T16:13:49Z",
+      "editorialOffice": "福岡管区気象台",
+      "publishingOffice": ["福岡管区気象台", "鹿児島地方気象台"],
+      "status": "通常",
+      "title": "噴火に関する火山観測報"
+    },
+    "head": {
+      "eventID": "20130107011300_506",
+      "headline": {
+        "information": [{
+          "item": [{
+            "any": [],
+            "areas": {
+              "area": [{
+                "circle": [],
+                "code": "506",
+                "coordinate": [],
+                "line": [],
+                "name": "桜島",
+                "polygon": []
+              }],
+              "codeType": "火山名"
+            },
+            "kind": [{
+              "code": "51",
+              "name": "爆発"
+            }],
+            "lastKind": []
+          }],
+          "type": "噴火に関する火山観測報"
+        }],
+        "text": "火　　山：桜島\n日　　時：2013年01月07日01時02分（061602UTC） 第2報\n現　　象：爆発"
+      },
+      "infoKind": "噴火に関する火山観測報",
+      "infoKindVersion": "1.0_0",
+      "infoType": "発表",
+      "reportDateTime": "2013-01-07T01:13:00+09:00",
+      "serial": "2",
+      "targetDateTime": "2013-01-07T01:02:00+09:00",
+      "title": "火山名　桜島　噴火に関する火山観測報"
+    }
+  }
+}
