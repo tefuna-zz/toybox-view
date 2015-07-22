@@ -113,7 +113,7 @@
     };
     var AREA = {
       W: 960 - (AREA_MARGIN.RIGHT + AREA_MARGIN.LEFT),
-      H: 800 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
+      H: 600 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
     };
     var NODE_R_DEFAULT = 10;
     var NODE_R_WEIGHT = 2;
@@ -164,8 +164,12 @@
       var svg = d3.select("#result-image").append("svg");
       svg.attr({
         "id": "svg",
-        width: AREA.W,
-        height: AREA.H
+        "preserveAspectRatio": "none",
+        "viewBox": "0 0 " + AREA.W + " " + AREA.H
+          //
+          //
+          // width: AREA.W,
+          // height: AREA.H
       });
 
       // path arrow definition.

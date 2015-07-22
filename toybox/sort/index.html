@@ -54,10 +54,8 @@
         </form>
         <br />
         <div class="row">
-          <div class="col-sm-1">
-            <label>description</label>
-          </div>
-          <textarea id="txta-sort-description" class="col-sm-8 view-mode my" rows="2" readonly="true" placeholder="show sort algorithm overview."></textarea>
+          <label class="control-label col-md-1">description</label>
+          <textarea id="txta-sort-description" class="col-sm-11 view-mode my" rows="2" readonly="true" placeholder="show sort algorithm overview."></textarea>
         </div>
       </div>
     </div>
@@ -67,28 +65,18 @@
       <h2>result</h2>
       <div id="result" class="my-margin">
         <div class="row">
-          <div class="col-sm-1">
-            <span class="label label-default label-my">sort name</span>
-          </div>
-          <p id="txt-sort-name" class="col-sm-2"></p>
-          <div class="col-sm-1">
-            <span class="label label-default label-my">method</span>
-          </div>
-          <p id="txt-sort-method" class="col-sm-2"></p>
-          <div class="col-sm-1">
-            <span class="label label-default label-my">elements</span>
-          </div>
-          <p id="txt-elements" class="col-sm-2"></p>
-          <div class="col-sm-1">
-            <span class="label label-default label-my">time spent</span>
-          </div>
-          <p id="txt-time-spent" class="col-sm-2"></p>
+          <label class="control-label col-md-1">sort name</label>
+          <p id="txt-sort-name" class="col-md-2">-</p>
+          <label class="control-label col-md-1">method</label>
+          <p id="txt-sort-method" class="col-md-2">-</p>
+          <label class="control-label col-md-1">elements</label>
+          <p id="txt-elements" class="col-md-2">-</p>
+          <label class="control-label col-md-1">time</label>
+          <p id="txt-time-spent" class="col-md-2">-</p>
         </div>
         <div class="row">
-          <div class="col-sm-1">
-            <span class="label label-default label-my">raw data</span>
-          </div>
-          <textarea id="txta-raw-data" class="col-sm-8 view-mode my" rows="2" readonly="true"></textarea>
+          <label class="control-label col-md-1">raw data</label>
+          <textarea id="txta-raw-data" class="col-sm-11 view-mode my" rows="2" readonly="true"></textarea>
         </div>
       </div>
 
@@ -103,27 +91,25 @@
         <h3>sort steps.</h3>
         <div class="my-margin">
           <div class="row">
-            <div class="col-sm-1">
-              <label>stepping</label>
-            </div>
-            <div class="col-sm-2">
-              <p id="txt-step-count"></p>
-            </div>
-            <button class="btn btn-primary col-sm-1" onclick="executeSteps()">start</button>
-            <div class="col-sm-4 col-sm-offset-2">
+
+            <label class="control-label col-md-1">stepping</label>
+            <p id="txt-step-count" class="col-md-2">-</p>
+
+            <button class="btn btn-primary col-md-1" onclick="startStep()">start</button>
+            <button class="btn btn-default col-md-1" onclick="stopStep()">stop</button>
+            <div class="col-sm-5 col-sm-offset-1">
               note:
               <span class="label label-svg-undone label-my-sm">undone</span>
               <span class="label label-svg-comparing label-my-sm">comparing</span>
               <span class="label label-svg-exchanging label-my-sm">exchanging</span>
               <span class="label label-svg-complete label-my-sm">complete</span>
+              <span class="label label-svg-dummy label-my-sm">dummy</span>
             </div>
           </div>
           <div id="steps-graph-area"></div>
           <div class="row">
-            <div class="col-sm-1">
-              <label>step log</label>
-            </div>
-            <textarea id="txta-step-log" class="col-sm-8 view-mode my" rows="4" readonly="true" placeholder="show sort steps."></textarea>
+            <label class="control-label col-md-1">step log</label>
+            <textarea id="txta-step-log" class="col-sm-11 view-mode my" rows="4" readonly="true" placeholder="show sort steps."></textarea>
           </div>
         </div>
       </div>
@@ -140,14 +126,23 @@
     <script src="js/sort-common.js"></script>
 
     <script>
-      var AREA_W = 800;
-      var AREA_H = 300;
-      var AREA_PAD = 30;
-      var COLOR_UNDONE = "#25B8F5";
-      var COLOR_COMPARING = "#09C100";
-      var COLOR_EXCHANGING = "#0000FF";
-      var COLOR_COMPLETE = "#FF38E5";
-      var COLOR_DUMMY = "#A4A4A4";
+      var AREA = {
+        W: 800,
+        H: 300
+      };
+      var AREA_MARGIN = {
+        TOP: 30,
+        RIGHT: 30,
+        BOTTOM: 30,
+        LEFT: 30
+      };
+      var COLOR_RECT = {
+        UNDONE: "#25B8F5",
+        COMPARING: "#09C100",
+        EXCHANGING: "#0000FF",
+        COMPLETE: "#FF38E5",
+        DUMMY: "#A4A4A4"
+      };
       var COLOR_TEXT = "#000000"
       var MAX_DOMAIN = 100;
       var INTERVAL = 80; // msec
@@ -157,7 +152,7 @@
       var svgOriginal;
       var svgSteps;
       var count = 0;
-      var intervalId;
+      var intervalId = 0;
 
       /**
        * read json file.
@@ -194,18 +189,32 @@
       /**
        * execute sort steps by interval.
        */
-      function executeSteps() {
-        console.log("start function executeSteps()");
+      function startStep() {
+        console.log("start function startStep()");
 
-        count = 0;
-
-        drawInitial(svgSteps, dataset.original);
-        clearInterval(intervalId);
-        $("#txta-step-log").text("");
-
+        if (intervalId != 0) {
+          return;
+        }
         intervalId = setInterval("procStep()", INTERVAL);
 
-        console.log("end function executeSteps()");
+        console.log("end function startStep()");
+      }
+
+
+      /**
+       * stop sort step.
+       */
+      function stopStep() {
+        console.log("start function stopStep()");
+
+        clearInterval(intervalId);
+        intervalId = 0;
+        // count = 0;
+        // drawInitial(svgSteps, dataset.original);
+        // $("#txta-step-log").text("");
+        // intervalId = setInterval("procStep()", INTERVAL);
+        //
+        console.log("end function stopStep()");
       }
 
       /**
@@ -216,17 +225,22 @@
 
         // create svg.
         var svg = d3.select(graphId).append("svg");
+        svg.attr({
+          "id": "svg-" + graphId,
+          "preserveAspectRatio": "none",
+          "viewBox": "0 0 " + AREA.W + " " + AREA.H
+        });
+        // svg.attr("width", AREA.W).attr("height", AREA.H);
         svg.append("g").attr("class", "data");
-        svg.attr("width", AREA_W).attr("height", AREA_H);
 
         // define axis.
         var yScale = d3.scale.linear()
           .domain([0, MAX_DOMAIN])
-          .range([AREA_H - AREA_PAD, AREA_PAD]);
+          .range([AREA.H - AREA_MARGIN.BOTTOM, AREA_MARGIN.BOTTOM]);
         var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
         svg.append("g")
           .attr("class", "axis")
-          .attr("transform", "translate(" + AREA_PAD + ", 0)")
+          .attr("transform", "translate(" + AREA_MARGIN.BOTTOM + ", 0)")
           .call(yAxis);
 
         console.log("end function setupGraphArea.");
@@ -256,20 +270,20 @@
           .append("rect")
           .attr({
             x: function(d, i) {
-              return i * (AREA_W - AREA_PAD) / original.length + AREA_PAD;
+              return i * (AREA.W - AREA_MARGIN.RIGHT) / original.length + AREA_MARGIN.RIGHT;
             },
             y: function(d) {
-              return AREA_H - d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN) - AREA_PAD;
+              return AREA.H - d.val * ((AREA.H - AREA_MARGIN.BOTTOM * 2) / MAX_DOMAIN) - AREA_MARGIN.BOTTOM;
             },
-            width: (AREA_W - AREA_PAD) / original.length - 2,
+            width: (AREA.W - AREA_MARGIN.RIGHT) / original.length - 2,
             height: function(d) {
-              return d.val * ((AREA_H - AREA_PAD * 2) / MAX_DOMAIN);
+              return d.val * ((AREA.H - AREA_MARGIN.BOTTOM * 2) / MAX_DOMAIN);
             },
             fill: function(d) {
               if (d.id < 0) {
-                return COLOR_DUMMY;
+                return COLOR_RECT.DUMMY;
               } else {
-                return COLOR_UNDONE;
+                return COLOR_RECT.UNDONE;
               }
             }
 
@@ -288,10 +302,10 @@
           .attr({
             "text-anchor": "middle",
             x: function(d, i) {
-              return i * (AREA_W - AREA_PAD) / original.length + (AREA_W / original.length - 1) / 2 + AREA_PAD;
+              return i * (AREA.W - AREA_MARGIN.RIGHT) / original.length + (AREA.W / original.length - 1) / 2 + AREA_MARGIN.RIGHT;
             },
             y: function(d) {
-              return AREA_H - 5 - AREA_PAD;
+              return AREA.H - 5 - AREA_MARGIN.BOTTOM;
             },
             fill: COLOR_TEXT
           });

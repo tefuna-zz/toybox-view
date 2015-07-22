@@ -41,14 +41,13 @@ function drawStepAsExchanging() {
     .duration(INTERVAL)
     .attr({
       x: function(d, i) {
-        return d.pos * (AREA_W - AREA_PAD) / dataset.original.length + AREA_PAD;
+        return d.pos * (AREA.W - AREA_MARGIN.RIGHT) / dataset.original.length + AREA_MARGIN.RIGHT;
       },
       fill: function(d) {
-        console.log(steps[count].operation);
         if (steps[count].operation == "comparing") {
-          return COLOR_COMPARING;
+          return COLOR_RECT.COMPARING;
         } else {
-          return COLOR_EXCHANGING;
+          return COLOR_RECT.EXCHANGING;
         }
       }
     })
@@ -57,13 +56,12 @@ function drawStepAsExchanging() {
     .attr({
       fill: function(d) {
         if (d.sorted === true) {
-          console.log(d);
-          return COLOR_COMPLETE;
+          return COLOR_RECT.COMPLETE;
         } else {
           if (d.id < 0) {
-            return COLOR_DUMMY;
+            return COLOR_RECT.DUMMY;
           } else {
-            return COLOR_UNDONE;
+            return COLOR_RECT.UNDONE;
           }
         }
       }
@@ -79,7 +77,7 @@ function drawStepAsExchanging() {
     .attr({
       "text-anchor": "middle",
       x: function(d, i) {
-        return d.pos * (AREA_W - AREA_PAD) / dataset.original.length + (AREA_W / dataset.original.length - 1) / 2 + AREA_PAD;
+        return d.pos * (AREA.W - AREA_MARGIN.RIGHT) / dataset.original.length + (AREA.W / dataset.original.length - 1) / 2 + AREA_MARGIN.RIGHT;
       }
     });
 }
@@ -95,7 +93,7 @@ function finishSteps() {
     .transition()
     .duration(INTERVAL)
     .attr({
-      fill: COLOR_COMPLETE
+      fill: COLOR_RECT.COMPLETE
     });
 
   clearInterval(intervalId);
@@ -118,7 +116,6 @@ function printStepLog(stepObj) {
   }
   elemIds = elemIds + stepObj.swapelem[stepObj.swapelem.length - 1].id + "(" + stepObj.swapelem[stepObj.swapelem.length - 1].val + ")";
 
-  // @TODO そのstep時点での進捗。サーバからもらうしかない。。。
   var array = "[]";
   // for (var i = 0; i < dataList.length - 1; i++) {
   //   array = array + dataList[i].val + ", ";
@@ -129,7 +126,7 @@ function printStepLog(stepObj) {
   $("#txta-step-log").append("step: " + stepObj.seq + "\t");
   $("#txta-step-log").append("operation: " + stepObj.operation + "\t");
   $("#txta-step-log").append("elem-ids: " + elemIds + "\t");
-  // $("#txta-step-log").append("array: " + stepObj.array + "\n");
+  $("#txta-step-log").append("array: " + array + "\n");
 
   $("#txta-step-log").scrollTop($("#txta-step-log")[0].scrollHeight);
 }
