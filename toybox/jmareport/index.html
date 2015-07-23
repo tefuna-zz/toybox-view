@@ -69,13 +69,27 @@
       W: 600,
       H: 600 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
     };
-    var DRAG_SENS = 1.0;
 
     var svg;
     var scale = 600; // default
+    var geoJp;
 
 
-    svg = setupGraphArea();
+    d3.json("japan_topojson.json", function(error, jpdata) {
+      if (error != null) {
+        console.log(err);
+        return;
+      }
+      console.log(jpdata);
+
+      geoJp = topojson.feature(jpdata, jpdata.objects.ne_10m_admin_1_states_provinces);
+      console.log(geoJp);
+
+      svg = setupGraphArea();
+      drawGeoJp();
+      drawGeoObservatory();
+
+    });
 
 
     /**
@@ -90,49 +104,28 @@
         "preserveAspectRatio": "none",
         "viewBox": "0 0 " + AREA.W + " " + AREA.H
       });
+      svg.append("g").attr("id", "geojp");
+      svg.append("g").attr("id", "geoobs");
+      svg.append("g").attr("id", "georepo");
 
-      mercator = d3.geo.mercator()
+
+      projection = d3.geo.mercator()
         .center([136.0, 35.6])
         .translate([AREA.W / 2, AREA.H / 2])
         .scale(scale);
 
       geopath = d3.geo.path()
-        .projection(mercator);
+        .projection(projection);
 
+      var zoom = d3.behavior.zoom()
+        .on("zoom", zoomMap);
+      svg.call(zoom);
 
-      d3.json("japan_topojson.json", function(error, jp) {
-        console.log(jp);
-
-        var geoJp = topojson.feature(jp, jp.objects.ne_10m_admin_1_states_provinces);
-        console.log(geoJp);
-
-        svg.selectAll("path")
-          .data(geoJp.features) // geojsonのすべての県の座標データを読み込む。
-          .enter()
-          .append("path")
-          .attr("class", function(d) {
-            return d.id;
-          })
-          .attr("d", geopath); // geojsonからpath要素に変換する。
-        // .attr("fill", function(d) {
-        //   return color(d.geometry.coordinates);
-        // }); // idがないので、各県の座標リストに基づいて色を変える。
-
-
-        var zoom = d3.behavior.zoom()
-          .on("zoom", zoomMap);
-        svg.call(zoom);
-
-        var drag = d3.behavior.drag()
-          .on("drag", dragMap);
-        svg.call(drag);
-
-
-
-      });
+      var drag = d3.behavior.drag()
+        .on("drag", dragMap);
+      svg.call(drag);
 
       console.log("end function setupGraphArea.");
-
       return svg;
     }
 
@@ -140,10 +133,69 @@
     /**
      *
      */
+    function drawGeoJp() {
+
+      svg.select("g#geojp").selectAll("path")
+        .data(geoJp.features) // geojsonのすべての県の座標データを読み込む。
+        .enter()
+        .append("path")
+        .attr("class", function(d) {
+          return d.id;
+        })
+        .attr("d", geopath); // geojsonからpath要素に変換する。
+      // .attr("fill", function(d) {
+      //   return color(d.geometry.coordinates);
+      // }); // idがないので、各県の座標リストに基づいて色を変える。
+
+    }
+
+
+    /**
+     *
+     */
+    function drawGeoObservatory() {
+      console.log("call drawGeoObservatory");
+
+      var data;
+
+      d3.json("observatory_geo.json", function(error, obsdata) {
+        console.log(error);
+        console.log(obsdata);
+
+        data = obsdata;
+
+        svg.select("g#geoobs").selectAll("circle")
+          .data(data.features)
+          .enter()
+          .append("circle")
+          .attr({
+            "r": 2,
+            "transform": function(d) {
+              /*whatever transformation that needs to be done*/
+              return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
+            }
+          })
+          .style("fill", "red")
+          .classed("pin", true);
+
+
+      });
+
+
+
+    }
+
+
+    /**
+     *
+     */
     function zoomMap() {
-      console.log("call zoomMap.");
-      mercator.scale(scale * d3.event.scale);
-      svg.selectAll("path").attr("d", geopath);
+      projection.scale(scale * d3.event.scale);
+      svg.select("g#geojp").selectAll("path").attr("d", geopath);
+      svg.select("g#geoobs").selectAll("circle").attr("transform", function(d) {
+        /*whatever transformation that needs to be done*/
+        return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
+      });
     }
 
 
@@ -151,13 +203,13 @@
      *
      */
     function dragMap() {
-      console.log("call dragMap");
-
-      // TODO kando yabasugi.
-
-      var tl = mercator.translate();
-      mercator.translate([(tl[0] + d3.event.dx) * DRAG_SENS, (tl[1] + d3.event.dy) * DRAG_SENS]);
-      svg.selectAll("path").attr("d", geopath);
+      var tl = projection.translate();
+      projection.translate([tl[0] + d3.event.dx, tl[1] + d3.event.dy]);
+      svg.select("g#geojp").selectAll("path").attr("d", geopath);
+      svg.select("g#geoobs").selectAll("circle").attr("transform", function(d) {
+        /*whatever transformation that needs to be done*/
+        return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
+      });
     }
   </script>
 </body>

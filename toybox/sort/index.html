@@ -158,7 +158,10 @@
        * read json file.
        */
       d3.json("data.json", function(error, jsondata) {
-        console.log(error);
+        if (error != null) {
+          console.log(err);
+          return;
+        }
         console.log(jsondata);
         dataset = jsondata;
         steps = dataset.steps;
