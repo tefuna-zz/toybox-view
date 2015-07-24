@@ -103,6 +103,37 @@ pre.message {
   font-family: "Migu 1M", sans-serif;
   font-size: 12px;
 }
+g > circle.c01 {
+  fill: #ff0000;
+}
+g > circle.c02 {
+  fill: #0030ff;
+}
+g > circle.c03 {
+  fill: #a4119f;
+}
+g > circle.c04 {
+  fill: #1aad02;
+}
+g > circle.c05 {
+  fill: #00fff0;
+}
+g > circle.c09 {
+  fill: #d5cbcb;
+}
+g > circle.c91 {
+  /* undefined. */
+}
+g > text.legend {
+  font-family: "Migu 1M", sans-serif;
+  font-size: 5px;
+  pointer-events: none;
+}
+
+/*g#obslegend > circle.c01 {
+  fill: #ff0000;
+}*/
+
 
 /*!
  * for debug.

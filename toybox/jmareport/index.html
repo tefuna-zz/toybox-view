@@ -9,6 +9,7 @@
   <meta name="robots" content="noindex, nofollow" />
 
   <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../../css/tipsy.css" rel="stylesheet" />
   <link href="../../css/my.css" rel="stylesheet" />
 
   <title>meteorological report</title>
@@ -30,17 +31,13 @@
       <div class="row">
         <div class="col-md-12">
           <h4>event message</h4>
-          <pre id="event-message" class="message">
-            message here.
-          </pre>
+          <pre id="txta-event-message" class="message"></pre>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <h4>report message</h4>
-          <pre id="report-message" class="message">
-            message here.
-          </pre>
+          <pre id="txta-report-message" class="message"></pre>
         </div>
       </div>
     </div>
@@ -56,8 +53,10 @@
 
   <script src="../../js/jquery-1.11.3.js"></script>
   <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/jquery.tipsy.js"></script>
   <script src="../../js/d3.js"></script>
   <script src="../../js/topojson.js"></script>
+  <script src="./js/jmareport-common.js"></script>
   <script>
     var AREA_MARGIN = {
       TOP: 10,
@@ -66,30 +65,43 @@
       LEFT: 10
     }
     var AREA = {
-      W: 600,
-      H: 600 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
+      W: 360,
+      H: 360 - (AREA_MARGIN.TOP + AREA_MARGIN.BOTTOM)
     };
+    var ZOOM_LIMIT = {
+      MIN: 0.6,
+      MAX: 20.0
+    };
+    var INTERVAL = 1000; // msec.
 
-    var svg;
     var scale = 600; // default
-    var geoJp;
+    var svg;
+    var projection;
+    var geopath;
+    var zoom;
+    var drag;
+    var dataM;
+    var dataGeoJp;
+    var dataGeoObs;
+    var intervalId;
 
 
-    d3.json("japan_topojson.json", function(error, jpdata) {
-      if (error != null) {
-        console.log(err);
-        return;
-      }
-      console.log(jpdata);
+    initialize();
+    /**
+     *
+     */
+    function initialize() {
+      console.log("start function initialize");
 
-      geoJp = topojson.feature(jpdata, jpdata.objects.ne_10m_admin_1_states_provinces);
-      console.log(geoJp);
-
-      svg = setupGraphArea();
+      setupGraphArea();
+      setupMaster();
       drawGeoJp();
       drawGeoObservatory();
 
-    });
+      startReportingService();
+
+      console.log("end function initialize");
+    }
 
 
     /**
@@ -98,35 +110,51 @@
     function setupGraphArea() {
       console.log("start function setupGraphArea.");
 
-      var svg = d3.select("#svg-area").append("svg");
+      svg = d3.select("#svg-area").append("svg");
       svg.attr({
         "id": "svg",
         "preserveAspectRatio": "none",
         "viewBox": "0 0 " + AREA.W + " " + AREA.H
       });
+      svg.append("g").attr("id", "obslegend");
       svg.append("g").attr("id", "geojp");
       svg.append("g").attr("id", "geoobs");
       svg.append("g").attr("id", "georepo");
 
-
       projection = d3.geo.mercator()
-        .center([136.0, 35.6])
+        .center([137.0, 35.6])
         .translate([AREA.W / 2, AREA.H / 2])
         .scale(scale);
+      geopath = d3.geo.path().projection(projection);
 
-      geopath = d3.geo.path()
-        .projection(projection);
-
-      var zoom = d3.behavior.zoom()
-        .on("zoom", zoomMap);
+      zoom = d3.behavior.zoom()
+        .scaleExtent([ZOOM_LIMIT.MIN, ZOOM_LIMIT.MAX])
+        .on("zoom", zoomed);
       svg.call(zoom);
 
       var drag = d3.behavior.drag()
-        .on("drag", dragMap);
+        .on("drag", dragged);
       svg.call(drag);
 
       console.log("end function setupGraphArea.");
-      return svg;
+    }
+
+
+    /**
+     *
+     */
+    function setupMaster() {
+
+      d3.json("master.json", function(error, master) {
+        if (error != null) {
+          console.log(err);
+          return;
+        }
+        console.log(master);
+        dataM = master;
+        drawLegend();
+      });
+
     }
 
 
@@ -134,19 +162,33 @@
      *
      */
     function drawGeoJp() {
+      console.log("start function drawGeoJp");
 
-      svg.select("g#geojp").selectAll("path")
-        .data(geoJp.features) // geojsonのすべての県の座標データを読み込む。
-        .enter()
-        .append("path")
-        .attr("class", function(d) {
-          return d.id;
-        })
-        .attr("d", geopath); // geojsonからpath要素に変換する。
-      // .attr("fill", function(d) {
-      //   return color(d.geometry.coordinates);
-      // }); // idがないので、各県の座標リストに基づいて色を変える。
+      d3.json("japan_topojson.json", function(error, jpdata) {
+        if (error != null) {
+          console.log(err);
+          return;
+        }
+        console.log(jpdata);
 
+        dataGeoJp = topojson.feature(jpdata, jpdata.objects.ne_10m_admin_1_states_provinces);
+        console.log(dataGeoJp);
+
+        svg.select("g#geojp").selectAll("path")
+          .data(dataGeoJp.features) // geojsonのすべての県の座標データを読み込む。
+          .enter()
+          .append("path")
+          .attr("class", function(d) {
+            return d.id;
+          })
+          .attr("d", geopath); // geojsonからpath要素に変換する。
+
+        // .attr("fill", function(d) {
+        //   return color(d.geometry.coordinates);
+        // }); // idがないので、各県の座標リストに基づいて色を変える。
+      });
+
+      console.log("end function drawGeoJp");
     }
 
 
@@ -154,55 +196,133 @@
      *
      */
     function drawGeoObservatory() {
-      console.log("call drawGeoObservatory");
-
-      var data;
+      console.log("start function drawGeoObservatory");
 
       d3.json("observatory_geo.json", function(error, obsdata) {
-        console.log(error);
+        if (error != null) {
+          console.log(err);
+          return;
+        }
         console.log(obsdata);
 
-        data = obsdata;
-
+        dataGeoObs = obsdata;
         svg.select("g#geoobs").selectAll("circle")
-          .data(data.features)
+          .data(dataGeoObs.features, function(d) {
+            return d.properties.seq;
+          })
           .enter()
           .append("circle")
           .attr({
-            "r": 2,
+            "id": function(d) {
+              return d.properties.seq;
+            },
+            "class": function(d) {
+              return d.properties.class;
+            },
+            "r": function(d) {
+              for (var i = 0; i < dataM.classes.length; i++) {
+                if (dataM.classes[i].id === d.properties.class) {
+                  return dataM.classes[i].r;
+                }
+              }
+              console.log("unexpected class is appeared.");
+              return 100;
+            },
+            "display": function(d) {
+              return isDisplayed(zoom.scale(), d.properties.class);
+            },
             "transform": function(d) {
-              /*whatever transformation that needs to be done*/
               return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
             }
-          })
-          .style("fill", "red")
-          .classed("pin", true);
-
+          });
+        //
+        // $("svg#svg g#geoobs circle").tipsy({
+        //   gravity: "w",
+        //   // fade: true,
+        //   html: true,
+        //   title: function(d) {
+        //     var d = this.__data__;
+        //     console.log(d);
+        //     return d.properties.name;
+        //   }
+        // });
 
       });
 
-
-
+      console.log("end function drawGeoObservatory");
     }
 
 
     /**
      *
      */
-    function zoomMap() {
+    function drawLegend() {
+
+      // legend circle
+      svg.select("g#obslegend").selectAll("circle")
+        .data(dataM.classes)
+        .enter()
+        .append("circle")
+        .attr({
+          "class": function(d) {
+            return "legend " + d.id;
+          },
+          "r": 3,
+          "transform": function(d, i) {
+            return "translate(8, " + (i * 8 + 8) + ")";
+          }
+        })
+        .style("stroke-width", "1px")
+        .on("mouseover", function() {
+          d3.select(this).style("stroke-width", "4px");
+        })
+        .on("mouseout", function() {
+          d3.select(this).style("stroke-width", "1px");
+        })
+        .on("click", clickLegend);
+
+      // legend caption
+      svg.select("g#obslegend").selectAll("text")
+        .data(dataM.classes)
+        .enter()
+        .append("text")
+        .attr({
+          "class": "legend",
+          "transform": function(d, i) {
+            return "translate(15, " + (i * 8 + 10) + ")";
+          }
+        })
+        .text(function(d) {
+          return d.id + ": " + d.name;
+        });
+    }
+
+
+    /**
+     *
+     */
+    function zoomed() {
       projection.scale(scale * d3.event.scale);
-      svg.select("g#geojp").selectAll("path").attr("d", geopath);
-      svg.select("g#geoobs").selectAll("circle").attr("transform", function(d) {
-        /*whatever transformation that needs to be done*/
-        return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
-      });
+      svg.select("g#geojp").selectAll("path")
+        .attr("d", geopath);
+      svg.select("g#geoobs").selectAll("circle")
+        .attr({
+          "display": function(d) {
+            return isDisplayed(zoom.scale(), d.properties.class);
+          },
+          "transform": function(d) {
+            return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
+          }
+        });
+
+      tee("zoom.scale() :" + zoom.scale());
     }
 
 
     /**
      *
      */
-    function dragMap() {
+    function dragged() {
       var tl = projection.translate();
       projection.translate([tl[0] + d3.event.dx, tl[1] + d3.event.dy]);
       svg.select("g#geojp").selectAll("path").attr("d", geopath);
@@ -210,6 +330,48 @@
         /*whatever transformation that needs to be done*/
         return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
       });
+    }
+
+
+    /**
+     *
+     **/
+    function clickLegend(d, i) {
+      console.log("start function clickLegend");
+
+      console.log(this + " /  " + d + " / " + i);
+      //
+      // unction(d, i) {
+      //   drawFlags[i] = !drawFlags[i]; //該当するフラグを反転
+      //   //フィルタリング＆再描画
+      //   if (drawFlags[i]) {
+      //     d3.select(this).select("circle").style("fill-opacity", 1.0);
+      //   } else {
+      //     d3.select(this).select("circle").style("fill-opacity", 0.0);
+      //   }
+      //   plots
+      //     .style("display", function(d) {
+      //       //フィルタリング
+      //       if (drawFlags[category(d.id)]) {
+      //         return "inherit";
+      //       } else {
+      //         return "none";
+      //       }
+      //     });
+
+      console.log("end function clickLegend");
+    }
+
+
+    /**
+     *
+     */
+    function isDisplayed(zoomScale, obsClass) {
+      if (zoomScale < 5 && !(obsClass === "c01" || obsClass === "c02" || obsClass === "c04")) {
+        return "none";
+      }
+
+      return "inline";
     }
   </script>
 </body>

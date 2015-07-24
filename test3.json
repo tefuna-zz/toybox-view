@@ -1,0 +1,892 @@
+{
+  "report": {
+    "body": {
+      "meteorologicalInfos": [],
+      "notice": [],
+      "warning": [{
+        "item": [{
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090000",
+            "coordinate": [],
+            "line": [],
+            "name": "栃木県",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "changeStatus": "警報_注意報種別に変化有",
+          "editingMark": "0",
+          "fullStatus": "一部",
+          "kind": [{
+            "code": "15",
+            "name": "強風注意報",
+            "property": [],
+            "status": "解除"
+          }],
+          "otherReport": []
+        }],
+        "type": "気象警報・注意報（府県予報区等）"
+      }, {
+        "item": [{
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090010",
+            "coordinate": [],
+            "line": [],
+            "name": "南部",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090020",
+            "coordinate": [],
+            "line": [],
+            "name": "北部",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "changeStatus": "警報_注意報種別に変化有",
+          "editingMark": "0",
+          "fullStatus": "一部",
+          "kind": [{
+            "code": "15",
+            "name": "強風注意報",
+            "property": [],
+            "status": "解除"
+          }],
+          "otherReport": []
+        }],
+        "type": "気象警報・注意報（一次細分区域等）"
+      }, {
+        "item": [{
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090011",
+            "coordinate": [],
+            "line": [],
+            "name": "県央部",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090012",
+            "coordinate": [],
+            "line": [],
+            "name": "南東部",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090013",
+            "coordinate": [],
+            "line": [],
+            "name": "南西部",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090021",
+            "coordinate": [],
+            "line": [],
+            "name": "那須地域",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "090022",
+            "coordinate": [],
+            "line": [],
+            "name": "日光地域",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "changeStatus": "警報_注意報種別に変化有",
+          "editingMark": "1",
+          "fullStatus": "全域",
+          "kind": [{
+            "code": "15",
+            "name": "強風注意報",
+            "property": [],
+            "status": "解除"
+          }],
+          "otherReport": []
+        }],
+        "type": "気象警報・注意報（市町村等をまとめた地域等）"
+      }, {
+        "item": [{
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920100",
+            "coordinate": [],
+            "line": [],
+            "name": "宇都宮市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920200",
+            "coordinate": [],
+            "line": [],
+            "name": "足利市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920300",
+            "coordinate": [],
+            "line": [],
+            "name": "栃木市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920400",
+            "coordinate": [],
+            "line": [],
+            "name": "佐野市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920500",
+            "coordinate": [],
+            "line": [],
+            "name": "鹿沼市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920600",
+            "coordinate": [],
+            "line": [],
+            "name": "日光市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "changeStatus": "警報_注意報種別に変化有",
+          "kind": [{
+            "code": "15",
+            "name": "強風注意報",
+            "property": [],
+            "status": "解除"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920800",
+            "coordinate": [],
+            "line": [],
+            "name": "小山市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0920900",
+            "coordinate": [],
+            "line": [],
+            "name": "真岡市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921000",
+            "coordinate": [],
+            "line": [],
+            "name": "大田原市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921100",
+            "coordinate": [],
+            "line": [],
+            "name": "矢板市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921300",
+            "coordinate": [],
+            "line": [],
+            "name": "那須塩原市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921400",
+            "coordinate": [],
+            "line": [],
+            "name": "さくら市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921500",
+            "coordinate": [],
+            "line": [],
+            "name": "那須烏山市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0921600",
+            "coordinate": [],
+            "line": [],
+            "name": "下野市",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0930100",
+            "coordinate": [],
+            "line": [],
+            "name": "上三川町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0934200",
+            "coordinate": [],
+            "line": [],
+            "name": "益子町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0934300",
+            "coordinate": [],
+            "line": [],
+            "name": "茂木町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0934400",
+            "coordinate": [],
+            "line": [],
+            "name": "市貝町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0934500",
+            "coordinate": [],
+            "line": [],
+            "name": "芳賀町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0936100",
+            "coordinate": [],
+            "line": [],
+            "name": "壬生町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0936400",
+            "coordinate": [],
+            "line": [],
+            "name": "野木町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0936700",
+            "coordinate": [],
+            "line": [],
+            "name": "岩舟町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0938400",
+            "coordinate": [],
+            "line": [],
+            "name": "塩谷町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0938600",
+            "coordinate": [],
+            "line": [],
+            "name": "高根沢町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0940700",
+            "coordinate": [],
+            "line": [],
+            "name": "那須町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }, {
+          "area": {
+            "circle": [],
+            "cityCodeList": [],
+            "cityList": [],
+            "code": "0941100",
+            "coordinate": [],
+            "line": [],
+            "name": "那珂川町",
+            "polygon": [],
+            "prefectureCodeList": [],
+            "prefectureList": [],
+            "subCityCodeList": [],
+            "subCityList": [],
+            "subPrefectureCodeList": [],
+            "subPrefectureList": []
+          },
+          "kind": [{
+            "property": [],
+            "status": "発表警報・注意報はなし"
+          }],
+          "otherReport": []
+        }],
+        "type": "気象警報・注意報（市町村等）"
+      }]
+    },
+    "control": {
+      "dateTime": "2012-12-31T18:23:42Z",
+      "editorialOffice": "宇都宮地方気象台",
+      "publishingOffice": ["宇都宮地方気象台"],
+      "status": "通常",
+      "title": "気象警報・注意報"
+    },
+    "head": {
+      "eventID": "",
+      "headline": {
+        "information": [{
+          "item": [{
+            "any": [],
+            "areas": {
+              "area": [{
+                "circle": [],
+                "code": "090000",
+                "coordinate": [],
+                "line": [],
+                "name": "栃木県",
+                "polygon": []
+              }],
+              "codeType": "気象情報／府県予報区・細分区域等"
+            },
+            "kind": [{
+              "code": "00",
+              "name": "解除"
+            }],
+            "lastKind": []
+          }],
+          "type": "気象警報・注意報（府県予報区等）"
+        }, {
+          "item": [{
+            "any": [],
+            "areas": {
+              "area": [{
+                "circle": [],
+                "code": "090020",
+                "coordinate": [],
+                "line": [],
+                "name": "北部",
+                "polygon": []
+              }],
+              "codeType": "気象情報／府県予報区・細分区域等"
+            },
+            "kind": [{
+              "code": "00",
+              "name": "解除"
+            }],
+            "lastKind": []
+          }],
+          "type": "気象警報・注意報（一次細分区域等）"
+        }, {
+          "item": [{
+            "any": [],
+            "areas": {
+              "area": [{
+                "circle": [],
+                "code": "090022",
+                "coordinate": [],
+                "line": [],
+                "name": "日光地域",
+                "polygon": []
+              }],
+              "codeType": "気象情報／府県予報区・細分区域等"
+            },
+            "kind": [{
+              "code": "00",
+              "name": "解除"
+            }],
+            "lastKind": []
+          }],
+          "type": "気象警報・注意報（市町村等をまとめた地域等）"
+        }, {
+          "item": [{
+            "any": [],
+            "areas": {
+              "area": [{
+                "circle": [],
+                "code": "0920600",
+                "coordinate": [],
+                "line": [],
+                "name": "日光市",
+                "polygon": []
+              }],
+              "codeType": "気象・地震・火山情報／市町村等"
+            },
+            "kind": [{
+              "code": "00",
+              "name": "解除"
+            }],
+            "lastKind": []
+          }],
+          "type": "気象警報・注意報（市町村等）"
+        }],
+        "text": "注意報を解除します。"
+      },
+      "infoKind": "気象警報・注意報",
+      "infoKindVersion": "1.0_0",
+      "infoType": "発表",
+      "reportDateTime": "2013-01-01T03:23:00+09:00",
+      "serial": "",
+      "targetDateTime": "2013-01-01T03:23:00+09:00",
+      "title": "栃木県気象警報・注意報"
+    }
+  }
+}
