@@ -11,6 +11,11 @@
   <link href="../../css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../css/tipsy.css" rel="stylesheet" />
   <link href="../../css/my.css" rel="stylesheet" />
+  <style type="text/css">
+    .container {
+      width: 1220px;
+    }
+  </style>
 
   <title>meteorological report</title>
 </head>
@@ -23,21 +28,21 @@
     </div>
     <div id="main-container" class="my-margin">
       <div class="row">
-        <div class="col-md-12">
-          <h4>report visual</h4>
+        <div class="col-md-8">
+          <h4>report visual
+            <button class="btn btn-primary" onclick="startReportingService()">start</button>
+          </h4>
           <div id="svg-area"></div>
+        </div>
+        <div class="col-md-4">
+          <h4>report message</h4>
+          <pre id="txta-report-message" class="message"></pre>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <h4>event message</h4>
           <pre id="txta-event-message" class="message"></pre>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h4>report message</h4>
-          <pre id="txta-report-message" class="message"></pre>
         </div>
       </div>
     </div>
@@ -73,8 +78,18 @@
       MAX: 20.0
     };
     var INTERVAL = 1000; // msec.
+    var REPORT_FIG = {
+      R: 10,
+      DURATION: 1000
+    }
+    var RIPPLE_FIG = {
+      MULT: 10,
+      R: 1e-6,
+      R_M: 25,
+      DURATION: 250
+    };
 
-    var scale = 600; // default
+    var scale = 650; // default
     var svg;
     var projection;
     var geopath;
@@ -84,9 +99,12 @@
     var dataGeoJp;
     var dataGeoObs;
     var intervalId;
+    var rippleColor;
 
 
     initialize();
+
+
     /**
      *
      */
@@ -97,8 +115,6 @@
       setupMaster();
       drawGeoJp();
       drawGeoObservatory();
-
-      startReportingService();
 
       console.log("end function initialize");
     }
@@ -154,7 +170,6 @@
         dataM = master;
         drawLegend();
       });
-
     }
 
 
@@ -178,10 +193,11 @@
           .data(dataGeoJp.features) // geojsonのすべての県の座標データを読み込む。
           .enter()
           .append("path")
-          .attr("class", function(d) {
-            return d.id;
-          })
-          .attr("d", geopath); // geojsonからpath要素に変換する。
+          .attr("class", "japan")
+          .attr("d", geopath)
+          .style("stroke", "gray")
+
+          // .attr("stroke", "white"); // geojsonからpath要素に変換する。
 
         // .attr("fill", function(d) {
         //   return color(d.geometry.coordinates);
@@ -315,7 +331,7 @@
           }
         });
 
-      tee("zoom.scale() :" + zoom.scale());
+      teeEvent("zoom.scale() :" + zoom.scale());
     }
 
 
@@ -330,6 +346,8 @@
         /*whatever transformation that needs to be done*/
         return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
       });
+
+      teeEvent("dragged()  :" + projection.translate());
     }
 
 

@@ -98,7 +98,7 @@ g.node > text {
 
 pre.message {
   line-height: 1.2em;
-  height: 300px;
+  height: 690px;
   overflow-y: scroll;
   font-family: "Migu 1M", sans-serif;
   font-size: 12px;
@@ -129,6 +129,66 @@ g > text.legend {
   font-size: 5px;
   pointer-events: none;
 }
+g > circle.report {
+  /*fill: ;*/
+  /*stroke-opacity: 1;*/
+}
+g > circle.ripple {
+  fill: none;
+  stroke-opacity: 1;
+}
+g > path.japan {
+  fill: white;
+  stroke-width: 0.5;
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
+  animation: DASH 5s ease-in alternate forwards;
+  -webkit-animation: DASH 5s ease-in 0s forwards;
+  -o-animation: DASH 5s ease-in 0s forwards;
+  animation: DASH 5s ease-in 0s forwards;
+}
+@keyframes DASH {
+  0% {
+    stroke-dashoffset: 3000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: black
+  }
+}
+@-moz-keyframes DASH {
+  0% {
+    stroke-dashoffset: 3000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes DASH {
+  0% {
+    stroke-dashoffset: 3000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: black
+  }
+}
+@-o-keyframes DASH {
+  0% {
+    stroke-dashoffset: 3000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-ms-keyframes DASHf {
+  0% {
+    stroke-dashoffset: 3000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
 
 /*g#obslegend > circle.c01 {
   fill: #ff0000;
@@ -139,6 +199,7 @@ g > text.legend {
  * for debug.
  */
 
-div {
+
+/*div {
   border: 1px solid #D3D3D3;
-}
+}*/
