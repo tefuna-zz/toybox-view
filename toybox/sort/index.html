@@ -123,6 +123,7 @@
     <script src="../../js/jquery-1.11.3.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/d3.js"></script>
+    <script src="../../js/d3-tip.js"></script>
     <script src="js/sort-common.js"></script>
 
     <script>
@@ -151,6 +152,7 @@
       var steps;
       var svgOriginal;
       var svgSteps;
+      var tip;
       var count = 0;
       var intervalId = 0;
 
@@ -168,6 +170,17 @@
 
         svgOriginal = setupGraphArea("#original-graph-area");
         svgSteps = setupGraphArea("#steps-graph-area");
+
+        // initialize tooltip.
+        tip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return "id: " + d.id + "\n  , value: " + d.val;
+          });
+        svgOriginal.call(tip);
+        svgSteps.call(tip);
+
         drawInitial(svgOriginal, dataset.original);
         drawInitial(svgSteps, dataset.original);
 
@@ -289,8 +302,9 @@
                 return COLOR_RECT.UNDONE;
               }
             }
-
-          });
+          })
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide);
 
         // add text object.
         svg.select("g.data").selectAll("text")

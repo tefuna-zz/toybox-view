@@ -9,7 +9,6 @@
   <meta name="robots" content="noindex, nofollow" />
 
   <link href="../../css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../css/tipsy.css" rel="stylesheet" />
   <link href="../../css/my.css" rel="stylesheet" />
   <style type="text/css">
     .container {
@@ -31,6 +30,7 @@
         <div class="col-md-8">
           <h4>report visual
             <button class="btn btn-primary" onclick="startReportingService()">start</button>
+            <button class="btn btn-default" onclick="stopReportingService()">stop</button>
           </h4>
           <div id="svg-area"></div>
         </div>
@@ -58,8 +58,8 @@
 
   <script src="../../js/jquery-1.11.3.js"></script>
   <script src="../../js/bootstrap.min.js"></script>
-  <script src="../../js/jquery.tipsy.js"></script>
   <script src="../../js/d3.js"></script>
+  <script src="../../js/d3-tip.js"></script>
   <script src="../../js/topojson.js"></script>
   <script src="./js/jmareport-common.js"></script>
   <script>
@@ -82,6 +82,14 @@
       R: 10,
       DURATION: 1000
     }
+    var DESCRIPTION_FIG = {
+      HEIGHT: 40,
+      RX: 3,
+      RY: 3,
+      POS_MARGIN_W: 5,
+      POS_MARGIN_H: 5,
+      DURATION: 1000
+    }
     var RIPPLE_FIG = {
       MULT: 10,
       R: 1e-6,
@@ -95,10 +103,12 @@
     var geopath;
     var zoom;
     var drag;
+    var obstip;
     var dataM;
     var dataGeoJp;
     var dataGeoObs;
-    var intervalId;
+    var intervalId = 0;
+    var dataRep = [];
     var rippleColor;
 
 
@@ -197,7 +207,7 @@
           .attr("d", geopath)
           .style("stroke", "gray")
 
-          // .attr("stroke", "white"); // geojsonからpath要素に変換する。
+        // .attr("stroke", "white"); // geojsonからpath要素に変換する。
 
         // .attr("fill", function(d) {
         //   return color(d.geometry.coordinates);
@@ -214,12 +224,22 @@
     function drawGeoObservatory() {
       console.log("start function drawGeoObservatory");
 
+      // initialize tooltip.
+      obstip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-10, 0])
+        .html(function(d) {
+          return d.properties.name;
+        });
+      svg.call(obstip);
+
       d3.json("observatory_geo.json", function(error, obsdata) {
         if (error != null) {
           console.log(err);
           return;
         }
         console.log(obsdata);
+
 
         dataGeoObs = obsdata;
         svg.select("g#geoobs").selectAll("circle")
@@ -250,19 +270,9 @@
             "transform": function(d) {
               return "translate(" + projection([d.geometry.coordinates[0], d.geometry.coordinates[1]]) + ")";
             }
-          });
-        //
-        // $("svg#svg g#geoobs circle").tipsy({
-        //   gravity: "w",
-        //   // fade: true,
-        //   html: true,
-        //   title: function(d) {
-        //     var d = this.__data__;
-        //     console.log(d);
-        //     return d.properties.name;
-        //   }
-        // });
-
+          })
+          .on("mouseover", obstip.show)
+          .on("mouseout", obstip.hide);
       });
 
       console.log("end function drawGeoObservatory");
@@ -385,7 +395,16 @@
      *
      */
     function isDisplayed(zoomScale, obsClass) {
-      if (zoomScale < 5 && !(obsClass === "c01" || obsClass === "c02" || obsClass === "c04")) {
+
+      var dispths;
+      for (var i = 0; i < dataM.classes.length; i++) {
+        if (obsClass === dataM.classes[i].id) {
+          dispths = dataM.classes[i].dispths;
+          break;
+        }
+      }
+
+      if (zoomScale < dispths) {
         return "none";
       }
 

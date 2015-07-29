@@ -102,6 +102,7 @@
   <script src="../../js/jquery-1.11.3.js"></script>
   <script src="../../js/bootstrap.min.js"></script>
   <script src="../../js/d3.js"></script>
+  <script src="../../js/d3-tip.js"></script>
   <script src="js/ma-common.js"></script>
 
   <script>
@@ -123,6 +124,7 @@
 
     var dataset;
     var svg;
+    var nodetip;
     var forceLayout;
     var nodes;
     var links;
@@ -150,6 +152,16 @@
       $("#txt-link-total").text(dataset.link.length);
 
       svg = setupGraphArea();
+
+      // initialize tooltip.
+      nodetip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+          return d.id + ", " + d.addr + ", " + d.wtsum;
+        });
+      svg.call(nodetip);
+
       nodeObj = setupNode();
       update();
     });
@@ -228,7 +240,9 @@
           "id": function(d) {
             return "c_" + d.id;
           },
-        });
+        })
+        .on("mouseover", nodetip.show)
+        .on("mouseout", nodetip.hide);
 
       node.append("text")
         .attr({

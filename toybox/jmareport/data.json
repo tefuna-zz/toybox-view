@@ -1,0 +1,504 @@
+{
+  "data": [{
+    "datetime": "2013-01-01T00:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/c811971d-75d3-4a83-9bd7-3ec287ad7e2e",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T15:02:00Z",
+        "editorialOffice": "旭川地方気象台",
+        "publishingOffice": ["旭川地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101000200_風_47406",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T00:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2012-12-31T23:50:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T00:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/fdc2960f-bc85-496b-a0ec-e6f3e061a877",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T15:02:00Z",
+        "editorialOffice": "室蘭地方気象台",
+        "publishingOffice": ["室蘭地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101000200_風_47426",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T00:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2012-12-31T23:40:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T01:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/7c8389ee-3b1c-4939-9b24-04c9fdf474e5",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T16:02:00Z",
+        "editorialOffice": "室蘭地方気象台",
+        "publishingOffice": ["室蘭地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101010200_風_47426",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T01:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T00:50:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T01:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/26f0a9d2-a54b-428d-a369-9ed30e20fb83",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T16:02:00Z",
+        "editorialOffice": "旭川地方気象台",
+        "publishingOffice": ["旭川地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101010200_風_47406",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T01:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T01:00:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T02:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/3e047389-ded0-466b-820e-765199151e22",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T17:02:00Z",
+        "editorialOffice": "旭川地方気象台",
+        "publishingOffice": ["旭川地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101020200_風_47406",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T02:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T01:50:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T02:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/17b0afeb-7205-42d3-b252-51694c4b16ab",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T17:02:00Z",
+        "editorialOffice": "室蘭地方気象台",
+        "publishingOffice": ["室蘭地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101020200_風_47426",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T02:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T01:40:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T02:27:09.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/2f4eab69-10fd-481e-b866-dba6453aae6d",
+    "title": "地方海上警報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T17:27:09Z",
+        "editorialOffice": "札幌管区気象台",
+        "publishingOffice": ["札幌管区気象台"],
+        "status": "通常",
+        "title": "地方海上警報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "地方海上警報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T02:30:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T02:30:00+09:00",
+        "title": "札幌海上気象",
+        "validDateTime": "2013-01-02T00:00:00+09:00"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T02:48:07.000+0900",
+    "fragment": null,
+    "headline": ["注意報を解除します。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/0e4a8e37-785a-4dea-a0a8-0de5746be70c",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T17:48:07Z",
+        "editorialOffice": "名瀬測候所",
+        "publishingOffice": ["名瀬測候所"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T02:48:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T02:48:00+09:00",
+        "title": "奄美地方（鹿児島県）気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T02:50:03.000+0900",
+    "fragment": null,
+    "headline": ["注意報を解除します。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/644672a0-1310-45e6-93e7-3700734d68a9",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T17:50:03Z",
+        "editorialOffice": "鹿児島地方気象台",
+        "publishingOffice": ["鹿児島地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T02:50:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T02:50:00+09:00",
+        "title": "鹿児島県（奄美地方を除く）気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T03:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/5d12a545-b0dd-4c76-b01a-7ec1f6264f81",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T18:02:00Z",
+        "editorialOffice": "室蘭地方気象台",
+        "publishingOffice": ["室蘭地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101030200_風_47426",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T03:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T02:40:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T03:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/78cbd497-240a-4898-905f-0937e6d9aebc",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T18:02:00Z",
+        "editorialOffice": "旭川地方気象台",
+        "publishingOffice": ["旭川地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101030200_風_47406",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T03:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T02:10:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T03:15:29.000+0900",
+    "fragment": null,
+    "headline": ["沿岸北部、沿岸南部では、強風や空気の乾燥による火の取り扱いに注意して下さい。内陸では、大雪やなだれに注意して下さい。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/45f29089-23ff-4389-9d1c-907ff79d280d",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T18:15:29Z",
+        "editorialOffice": "盛岡地方気象台",
+        "publishingOffice": ["盛岡地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T03:15:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T03:15:00+09:00",
+        "title": "岩手県気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T03:23:42.000+0900",
+    "fragment": null,
+    "headline": ["注意報を解除します。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/3dc6424e-b72e-4697-91a5-00a11c31098b",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T18:23:42Z",
+        "editorialOffice": "宇都宮地方気象台",
+        "publishingOffice": ["宇都宮地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T03:23:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T03:23:00+09:00",
+        "title": "栃木県気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:02:00.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/f1a941b8-a1cc-4b3f-a31c-789a9e1fb545",
+    "title": "特殊気象報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:02:00Z",
+        "editorialOffice": "室蘭地方気象台",
+        "publishingOffice": ["室蘭地方気象台"],
+        "status": "通常",
+        "title": "特殊気象報"
+      },
+      "head": {
+        "eventID": "20130101040200_風_47426",
+        "infoKind": "特殊気象報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:02:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T03:00:00+09:00",
+        "title": "特殊気象報（風）"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:11:08.000+0900",
+    "fragment": null,
+    "headline": ["嶺北では、１日昼過ぎまで大雪や落雷、電線等への着雪に注意して下さい。福井県では、１日昼過ぎまで高波に注意して下さい。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/1a7da656-8de1-4d31-b472-79554a179e4b",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:11:08Z",
+        "editorialOffice": "福井地方気象台",
+        "publishingOffice": ["福井地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:11:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T04:11:00+09:00",
+        "title": "福井県気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:20:08.000+0900",
+    "fragment": null,
+    "headline": ["加賀では、大雪に注意して下さい。石川県では、高波や高潮、落雷に注意して下さい。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/34587562-8109-4465-bafd-a87fb6d03bf0",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:20:08Z",
+        "editorialOffice": "金沢地方気象台",
+        "publishingOffice": ["金沢地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:20:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T04:20:00+09:00",
+        "title": "石川県気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:24:39.000+0900",
+    "fragment": null,
+    "headline": ["福岡、北九州地方では、１日昼過ぎから強風や高波に注意して下さい。福岡県では、１日朝まで大雪に注意して下さい。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/74c1e572-b43c-4e8f-bcac-e5a9797bd886",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:24:39Z",
+        "editorialOffice": "福岡管区気象台",
+        "publishingOffice": ["福岡管区気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:24:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T04:24:00+09:00",
+        "title": "福岡県気象警報・注意報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:26:13.000+0900",
+    "fragment": null,
+    "headline": ["北海道日本海側では、１日は雪を伴って非常に強い風が吹き、暴風雪の所があるでしょう。猛ふぶきによる交通障害に警戒してください。北日本日本海側では、１日朝にかけて高波にも警戒してください。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/116c01c9-844a-48d0-ac65-fa22d02ce203",
+    "title": "全般気象情報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:26:13Z",
+        "editorialOffice": "気象庁本庁",
+        "publishingOffice": ["気象庁予報部"],
+        "status": "通常",
+        "title": "全般気象情報"
+      },
+      "head": {
+        "eventID": "JPTK120233",
+        "infoKind": "同一現象用平文情報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:26:00+09:00",
+        "serial": "7",
+        "targetDateTime": "2013-01-01T04:26:00+09:00",
+        "title": "暴風雪と高波及び大雪に関する全般気象情報"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:28:10.000+0900",
+    "fragment": null,
+    "headline": [],
+    "link": "http://api.aitc.jp/jmardb-api/reports/f2eb8029-55d9-4b03-adae-c822ec2f3231",
+    "title": "紫外線観測データ",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:28:10Z",
+        "editorialOffice": "気象庁本庁",
+        "publishingOffice": ["気象庁地球環境・海洋部"],
+        "status": "通常",
+        "title": "紫外線観測データ"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "環境気象情報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:26:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T04:00:00+09:00",
+        "title": "紫外線観測データ"
+      }
+    }
+  }, {
+    "datetime": "2013-01-01T04:29:50.000+0900",
+    "fragment": null,
+    "headline": ["北部では１日昼前から、南部では１日昼過ぎから１日夜のはじめ頃まで、強風に注意して下さい。佐賀県では、１日朝まで大雪に注意して下さい。北部では、１日昼過ぎから高波に注意して下さい。"],
+    "link": "http://api.aitc.jp/jmardb-api/reports/40bce36d-aa3a-4e14-93f9-504dedcbef01",
+    "title": "気象警報・注意報",
+    "detail": {
+      "control": {
+        "dateTime": "2012-12-31T19:29:50Z",
+        "editorialOffice": "佐賀地方気象台",
+        "publishingOffice": ["佐賀地方気象台"],
+        "status": "通常",
+        "title": "気象警報・注意報"
+      },
+      "head": {
+        "eventID": "",
+        "infoKind": "気象警報・注意報",
+        "infoKindVersion": "1.0_0",
+        "infoType": "発表",
+        "reportDateTime": "2013-01-01T04:29:00+09:00",
+        "serial": "",
+        "targetDateTime": "2013-01-01T04:29:00+09:00",
+        "title": "佐賀県気象警報・注意報"
+      }
+    }
+  }]
+}

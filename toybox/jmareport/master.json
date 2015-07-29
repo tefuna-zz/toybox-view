@@ -239,38 +239,38 @@
   }],
   "classes": [{
     "id": "c01",
-    "name": "管区気象台＋沖縄気象台",
-    "r": 3,
+    "name": "管区気象台",
+    "r": 4,
     "dispths": 0
   }, {
     "id": "c02",
     "name": "地方気象台",
-    "r": 3,
-    "dispths": 1.5
+    "r": 2,
+    "dispths": 1.0
   }, {
     "id": "c03",
     "name": "測候所",
-    "r": 3,
-    "dispths": 4
+    "r": 2,
+    "dispths": 4.0
   }, {
     "id": "c04",
     "name": "航空気象台",
-    "r": 3,
+    "r": 2,
     "dispths": 1.5
   }, {
     "id": "c05",
     "name": "航空測候所",
-    "r": 3,
-    "dispths": 4
+    "r": 2,
+    "dispths": 4.0
   }, {
     "id": "c09",
     "name": "その他観測所",
-    "r": 3,
-    "dispths": 4
+    "r": 1,
+    "dispths": 6.0
   }, {
     "id": "c91",
-    "name": "気象庁",
-    "r": 3,
+    "name": "気象庁本庁",
+    "r": 4,
     "dispths": 0
   }]
 }

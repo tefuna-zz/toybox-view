@@ -48,13 +48,95 @@ function teeReport(message) {
 
 
 /**
- *  interval main.
+ *
+ **/
+function getPostionFromOfficeName(name) {
+
+  if (name == null) {
+    return null;
+  }
+
+  // TODO
+  for (var i = 0; i < dataGeoObs.features.length; i++) {
+    for (var j = 0; j < dataM.classes.length; j++) {
+      if (dataGeoObs.features[i].properties.class === dataM.classes[j].id) {
+        if (name === dataGeoObs.features[i].properties.name + dataM.classes[j].name) {
+          return dataGeoObs.features[i].geometry.coordinates;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+
+/**
+ *
+ **/
+function getPositionFromTransform(str) {
+
+  if (str == null) {
+    return null;
+  }
+
+  var pos = [];
+  pos.push(parseInt(str.substring(str.indexOf("(") + 1, str.indexOf(","))));
+  pos.push(parseInt(str.substring(str.indexOf(",") + 1, str.indexOf(")"))));
+
+  return pos;
+}
+
+
+/**
+ *
+ **/
+function getDescPosition(tStr, width) {
+
+  pos = getPositionFromTransform(tStr);
+
+  var x, y;
+  if (pos[0] < AREA.W - width) {
+    x = pos[0] + DESCRIPTION_FIG.POS_MARGIN_W;
+  } else {
+    x = pos[0] - width - DESCRIPTION_FIG.POS_MARGIN_W;
+  }
+
+  if (pos[1] < AREA.H - DESCRIPTION_FIG.HEIGHT) {
+    y = pos[1] + DESCRIPTION_FIG.POS_MARGIN_H;
+  } else {
+    y = pos[1] - DESCRIPTION_FIG.HEIGHT - DESCRIPTION_FIG.POS_MARGIN_H;
+  }
+
+  return [x, y];
+}
+
+
+
+/** ============================================================================
+ *
+ *
+ * ========================================================================= */
+/**
+ * stop + clear interval
+ */
+function stopReportingService() {
+  clearInterval(intervalId);
+  intervalId = 0;
+}
+
+/**
+ *  start interval .
  */
 function startReportingService() {
   console.log("start function startReportingService()");
 
+  if (intervalId != 0) {
+    console.log("service is already running.");
+    return;
+  }
+
   rippleColor = 0;
-  dataRep = [];
   intervalId = setInterval(executeReporting, INTERVAL);
 
   console.log("end function startReportingService()");
@@ -68,11 +150,10 @@ function executeReporting() {
 
   fetchReport();
 
-  if (dataRep.length < 0) {
+  if (dataRep.length > 0) {
+    drawReporting(dataRep.shift());
     return;
   }
-  drawReporting(dataRep.pop());
-
 }
 
 
@@ -81,13 +162,14 @@ function executeReporting() {
  */
 function fetchReport() {
 
-  d3.json("headline.json", function(error, data) {
+  d3.json("data.json", function(error, data) {
     if (error != null) {
       console.log(err);
       return;
     }
     console.log(data);
     for (var i = 0; i < data.data.length; i++) {
+      teeReport("fetch: " + data.data[i].detail.control.editorialOffice + " " + data.data[i].title);
       dataRep.push(data.data[i]);
     }
   });
@@ -101,7 +183,7 @@ function drawReporting(report) {
 
   var reportObj = svg.select("g#georepo")
     .datum(report, function(d) {
-      return d;
+      return d.link;
     })
     .append("circle")
     .attr({
@@ -112,7 +194,6 @@ function drawReporting(report) {
         return "translate(" + (AREA.W - REPORT_FIG.R) + ", " + REPORT_FIG.R + ")";
       }
     });
-
 
   // move report circle.
   reportObj
@@ -136,8 +217,14 @@ function drawReporting(report) {
     .attr("transform", "translate(" + (AREA.W - 180) + ", " + REPORT_FIG.R + ")")
     .transition()
     .duration(REPORT_FIG.DURATION)
+    .attr("r", 5)
     .attr("transform", function(d) {
-      return "translate(" + projection([141.935, 45.52]) + ")";
+      var position = getPostionFromOfficeName(d.detail.control.editorialOffice);
+      if (position == null) {
+        position = [0, AREA.H];
+        teeReport("unknown editorial office :" + d.detail.control.editorialOffice);
+      }
+      return "translate(" + projection(position) + ")";
     })
     .each("end", bind(transend, reportObj))
     .transition()
@@ -150,13 +237,13 @@ function drawReporting(report) {
 
 
 /**
- * callback at the end of tansition report circle.
+ * callback at the end of transition report circle.
  */
 function transend() {
   console.log("start function transend.");
 
-  showReport(this);
-  createRipple(this);
+  drawRipple(this);
+  drawDescription(this);
 
   console.log("end function transend.");
 }
@@ -165,16 +252,103 @@ function transend() {
 /**
  *
  **/
-function showReport(pCircle) {
+function drawDescription(pCircle) {
 
-  teeReport(pCircle);
+  var repdata = pCircle.datum();
+  teeReport("show: " + repdata.detail.control.editorialOffice + " " + repdata.link);
 
+  var descRect = svg.select("g#georepo").append("rect");
+  descRect
+    .attr({
+      "class": "description",
+      "width": 100,
+      "height": DESCRIPTION_FIG.HEIGHT,
+      "rx": DESCRIPTION_FIG.RX,
+      "ry": DESCRIPTION_FIG.RY
+    })
+    .attr("transform", function(d) {
+      pos = getDescPosition(pCircle.attr("transform"), descRect.attr("width"));
+      return "translate(" + pos[0] + "," + pos[1] + ")";
+    })
+    .transition()
+    .duration(3000)
+    .transition()
+    .duration(DESCRIPTION_FIG.DURATION)
+    .style("opacity", 0)
+    .remove();
+
+
+  // var desc = [
+  //   "d: " + repdata.detail.control.dateTime,
+  //   "p: " + repdata.detail.control.editorialOffice,
+  //   "t: " + repdata.detail.head.title,
+  //   "h: " + repdata.headline
+  // ];
+  //
+  // var descText = svg.select("g#georepo").selectAll("text")
+  //   .data(desc)
+  //   .enter()
+  //   .append("text")
+  //   .attr({
+  //     "class": "description",
+  //     "width": 120,
+  //     "height": DESCRIPTION_FIG.HEIGHT
+  //   })
+  //   .attr("transform", function(d) {
+  //     pos = getDescPosition(pCircle.attr("transform"), descRect.attr("width"));
+  //     return "translate(" + pos[0] + "," + pos[1] + ")";
+  //   })
+  //   .text(function(d) {
+  //     return d;
+  //   });
+  //
+  // descText
+  //   .transition()
+  //   .duration(2000);
+  //
+  // svg.select("g#georepo").selectAll("text")
+  //   .data([])
+  //   .exit()
+  //   .remove();
+
+
+  var descText = svg.select("g#georepo").append("text")
+  descText
+    .attr({
+      "class": "description",
+      "width": 100,
+      "height": DESCRIPTION_FIG.HEIGHT
+    })
+    .attr({
+      "transform": function(d) {
+        pos = getDescPosition(pCircle.attr("transform"), descRect.attr("width"));
+        return "translate(" + pos[0] + "," + pos[1] + ")";
+      },
+      "dx": "0.7em",
+      "dy": "1.2em"
+    })
+    .text(function() {
+      var desc = [];
+      desc.push("d: " + repdata.detail.control.dateTime);
+      desc.push("p: " + repdata.detail.control.editorialOffice);
+      desc.push("t: " + repdata.detail.head.title);
+      desc.push("h: " + repdata.headline);
+
+      return "d: " + repdata.detail.control.dateTime;
+    })
+    .transition()
+    .duration(3000)
+    .transition()
+    .duration(DESCRIPTION_FIG.DURATION)
+    .style("opacity", 0)
+    .remove();
 }
+
 
 /**
  *
  **/
-function createRipple(pCircle) {
+function drawRipple(pCircle) {
 
   for (var i = 0; i < RIPPLE_FIG.MULT; i++) {
     svg.select("g#georepo")
@@ -198,154 +372,3 @@ function createRipple(pCircle) {
       .remove();
   }
 }
-
-
-// function createReport() {
-//   var reportObj = svg.select("g#georepo")
-//     .append("circle")
-//     .attr({
-//       "r": 10,
-//       "fill": "#ad25a4"
-//     });
-//
-//   return reportObj
-// }
-//
-// function moveReport(reportObj) {
-//
-//   reportObj
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(50, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(100, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(150, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(200, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", function(d) {
-//       createRipple();
-//       return "translate(" + projection([141.935, 45.52]) + ")";
-//     })
-//     .transition()
-//     .duration(500)
-//     .attr("fill", "#ff00ff")
-//     .remove();
-//
-//   console.log("moveReport:" + reportObj);
-//
-// }
-//
-// function executeReport(reportObj) {
-//   console.log("executeReport:" + reportObj);
-//
-//   // reportObj.
-//
-//
-//   // createRipple(reportObj);
-//
-// }
-//
-//
-// /**
-//  *
-//  */
-// function createRipple() {
-//   console.log("createRipple:");
-//
-//   var i = 0;
-//
-//   svg.select("g#georepo")
-//     .append("circle")
-//     // .attr("cx", m[0])
-//     // .attr("cy", m[1])
-//     .attr("r", 1e-6)
-//     // .attr("cx", function() {
-//     //   console.log(reportObj);
-//     //   // reportObj.attr("cx")
-//     //   return 100;
-//     // })
-//     // .attr("cy", reportObj.attr("cy"))
-//     .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
-//     .style("stroke-opacity", 1)
-//     .transition()
-//     .duration(500)
-//     .ease(Math.sqrt)
-//     .attr("r", 100)
-//     .style("stroke-opacity", 1e-6)
-//     .remove();
-//
-// }
-
-//
-// function testDis() {
-//
-//   var i = 0;
-//
-//
-//
-//
-//   wave = svg.select("g#georepo")
-//     .append("circle")
-//     // .attr("cx", m[0])
-//     // .attr("cy", m[1])
-//     .attr("r", 1e-6)
-//     .style("stroke", d3.hsl((i = (i + 1) % 360), 1, .5))
-//     .style("stroke-opacity", 1);
-//   //
-//   // .selectAll("circle")
-//   //
-//   //   .data(data, function(d) {
-//   //     return d;
-//   //   })
-//   //   .enter()
-//   //   .append("circle")
-//   //   .attr({
-//   //     "r": 10,
-//   //     "fill": "#ad25a4"
-//   //   });
-// }
-//
-// function move() {
-//
-//   testDis();
-//   // svg.select("g#georepo").selectAll("circle")
-//   //   .data(data, function(d) {
-//   //     return d;
-//   //   })
-//   ball
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(50, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(100, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(150, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", "translate(200, 50)")
-//     .transition()
-//     .duration(500)
-//     .attr("transform", function(d) {
-//       return "translate(" + projection([141.935, 45.52]) + ")";
-//     })
-//     .transition()
-//     .duration(500)
-//     .attr("fill", "#ff00ff")
-//     .remove();
-//
-//   wave.transition()
-//     .duration(500)
-//     .ease(Math.sqrt)
-//     .attr("r", 100)
-//     .style("stroke-opacity", 1e-6)
-//     .remove();
-//
-// }
